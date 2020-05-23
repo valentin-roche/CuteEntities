@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
 
     Scene * view = new Scene(&entities);
 
-    Entity ent = Entity(QPointF(0, 0), 32, 32);
+    Entity ent {QPointF(0, 0), 32, 32};
 
-    entities.add(*ent);
+    entities.add(&ent);
 
     view->show();
     view->doDelta();

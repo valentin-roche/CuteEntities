@@ -20,6 +20,7 @@ private:
     QPointF m_position;
     int m_y_size, m_x_size;
     QString m_descriptorName = "";
+    qint64 m_lastCall = 0;
 };
 
 #endif // ENTITY_H

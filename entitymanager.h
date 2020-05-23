@@ -12,7 +12,7 @@ private:
     QList<Entity*> m_entities;
 public:
     EntityManager();
-    void add(Entity ent);
+    void add(Entity *ent);
     void doDelta(QElapsedTimer *timer);
 };
 

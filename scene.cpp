@@ -1,5 +1,6 @@
 #include "scene.h"
 
+#include <QElapsedTimer>
 #include <QGraphicsView>
 
 Scene::Scene(EntityManager* entities, QWidget *parent): QGraphicsView(parent), entities(*entities)

@@ -25,5 +25,7 @@ void Entity::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWid
 
 void Entity::delta(qint64 elapsed)
 {
-    qDebug() << elapsed;
+
+    qDebug() << "elapsed since last call : " << elapsed - m_lastCall;
+    m_lastCall = elapsed;
 }
