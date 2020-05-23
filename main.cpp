@@ -1,4 +1,5 @@
 #include "entity.h"
+#include "entitymanager.h"
 #include "scene.h"
 
 #include <QApplication>
@@ -10,11 +11,16 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QList<Entity> entities;
+    EntityManager entities;
 
-    Scene * view = new Scene(entities);
+    Scene * view = new Scene(&entities);
+
+    Entity ent = Entity(QPointF(0, 0), 32, 32);
+
+    entities.add(*ent);
 
     view->show();
+    view->doDelta();
 
     return a.exec();
 }

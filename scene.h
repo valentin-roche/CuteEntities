@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include "entity.h"
+#include "entitymanager.h"
 
 #include <QGraphicsView>
 
@@ -10,12 +11,12 @@ class Scene : public QGraphicsView
     Q_OBJECT
 
 private:
-    QList<Entity>& entities;
     QGraphicsScene scene;
-    QGraphicsItemGroup entities_graph;
+    EntityManager &entities;
 
 public:
-    Scene(QList<Entity>& entities, QWidget *parent=0);
+    Scene(EntityManager* entities, QWidget *parent=0);
+    void doDelta();
 };
 
 #endif // SCENE_H

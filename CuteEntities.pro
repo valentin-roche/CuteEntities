@@ -17,11 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     entity.cpp \
+    entitymanager.cpp \
     main.cpp \
     scene.cpp
 
 HEADERS += \
     entity.h \
+    entitymanager.h \
     scene.h
 
 FORMS +=

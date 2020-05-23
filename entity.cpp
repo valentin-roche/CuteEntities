@@ -2,7 +2,6 @@
 
 Entity::Entity(QPointF position, int x_size, int y_size) : m_position(position), m_y_size(y_size), m_x_size(x_size)
 {
-    setPos(position);
 }
 
 QRectF Entity::boundingRect() const
@@ -22,4 +21,9 @@ void Entity::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWid
     if (!isEnabled()) return;
 
     painter->drawRect(m_position.x(), m_position.y(), m_x_size, m_y_size);
+}
+
+void Entity::delta(qint64 elapsed)
+{
+    qDebug() << elapsed;
 }
