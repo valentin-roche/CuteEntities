@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QStaticText>
 #include <QDebug>
 
 class Entity : public QGraphicsItem
@@ -16,8 +17,10 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void delta(qint64 elapsed);
 
-private:
+protected:
     QPointF m_position;
+
+private:
     int m_y_size, m_x_size;
     QString m_descriptorName = "";
     qint64 m_lastCall = 0;

@@ -1,21 +1,32 @@
 #include "scene.h"
 
-#include <QElapsedTimer>
-#include <QGraphicsView>
-
-Scene::Scene(EntityManager* entities, QWidget *parent): QGraphicsView(parent), entities(*entities)
+Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m_entities(entities)
 {
+    main_timer = new QElapsedTimer();
+
+    timer_render = new QTimer();
+    connect(timer_render, SIGNAL(timeout()), this, SLOT(doDelta()));
+    timer_render->start(1000);
+
+    qDebug() << "entities : " << m_entities.getEntities();
+
+    for (Entity* e : m_entities.getEntities())
+    {
+        scene.addItem(e);
+        qDebug() << "Ajout de l'entite : " << e;
+    }
+
     scene.setSceneRect(0, 0, 800, 600);
     setScene(&scene);
 }
 
 void Scene::doDelta()
 {
-    QElapsedTimer *timer = new QElapsedTimer();
-    timer->start();
+    m_entities.doDelta(main_timer);
+    qDebug() << scene.items();
+}
 
-    while(true)
-    {
-        entities.doDelta(timer);
-    }
+QGraphicsScene * Scene::getScene()
+{
+    return &scene;
 }

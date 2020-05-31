@@ -13,11 +13,11 @@ int main(int argc, char *argv[])
 
     EntityManager entities;
 
-    Scene * view = new Scene(&entities);
-
-    Entity ent {QPointF(0, 0), 32, 32};
+    Entity ent {QPointF(100, 100), 32, 32};
 
     entities.add(&ent);
+
+    Scene * view = new Scene(entities);
 
     view->show();
     view->doDelta();

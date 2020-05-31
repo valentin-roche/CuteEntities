@@ -18,14 +18,16 @@ QPainterPath Entity::shape() const
 
 void Entity::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
 {
-    if (!isEnabled()) return;
 
-    painter->drawRect(m_position.x(), m_position.y(), m_x_size, m_y_size);
+    painter->drawRect(0, 0, m_x_size, m_y_size);
+    painter->fillRect(0, 0, m_x_size, m_y_size, Qt::green);
 }
 
 void Entity::delta(qint64 elapsed)
 {
-
+    m_position.setX(m_position.x()+10);
+    setPos(m_position);
     qDebug() << "elapsed since last call : " << elapsed - m_lastCall;
     m_lastCall = elapsed;
+
 }

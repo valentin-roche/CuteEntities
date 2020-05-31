@@ -3,8 +3,9 @@
 
 #include "entity.h"
 
-#include <QGraphicsItemGroup>
 #include <QElapsedTimer>
+#include <QGraphicsScene>
+#include <QDebug>
 
 class EntityManager
 {
@@ -14,6 +15,7 @@ public:
     EntityManager();
     void add(Entity *ent);
     void doDelta(QElapsedTimer *timer);
+    QList<Entity*> getEntities();
 };
 
 #endif // ENTITYMANAGER_H
