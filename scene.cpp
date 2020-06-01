@@ -5,8 +5,8 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
     main_timer = new QElapsedTimer();
 
     timer_render = new QTimer();
+    timer_render->setSingleShot(true);
     connect(timer_render, SIGNAL(timeout()), this, SLOT(doDelta()));
-    timer_render->start(1000);
 
     qDebug() << "entities : " << m_entities.getEntities();
 
@@ -18,6 +18,25 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
 
     scene.setSceneRect(0, 0, 800, 600);
     setScene(&scene);
+
+    sec_timer = new QElapsedTimer();
+    update_for_sec = 0;
+    qDebug() << QString::number(sec_timer->elapsed());
+    while(true)
+    {
+        if (sec_timer->elapsed() < 990)
+        {
+            update_for_sec ++;
+        }
+        else
+        {
+            update_for_sec = 0;
+            sec_timer->restart();
+        }
+        timer_render->start(1000 - sec_timer->elapsed() / 60 - update_for_sec);
+        QApplication::processEvents();
+    }
+
 }
 
 void Scene::doDelta()

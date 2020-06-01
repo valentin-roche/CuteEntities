@@ -8,7 +8,7 @@
 #include <QElapsedTimer>
 #include <QGraphicsView>
 #include <QTimer>
-#include <QDebug>
+#include <QApplication>
 
 class Scene : public QGraphicsView
 {
@@ -18,7 +18,9 @@ private:
     QGraphicsScene scene;
     EntityManager &m_entities;
     QElapsedTimer *main_timer;
+    QElapsedTimer *sec_timer;
     QTimer *timer_render;
+    int update_for_sec;
 
 public:
     Scene(EntityManager& entities, QWidget *parent=0);

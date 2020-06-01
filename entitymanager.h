@@ -5,7 +5,6 @@
 
 #include <QElapsedTimer>
 #include <QGraphicsScene>
-#include <QDebug>
 
 class EntityManager
 {
