@@ -1,6 +1,7 @@
 #include "scene.h"
 
-Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m_entities(entities)
+Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
+    QGraphicsView(parent), m_entities(entities), m_tileset(tileset), m_tilemap(&tileset, {800, 20}), m_player({800, 600})
 {
     main_timer = new QElapsedTimer();
 
@@ -9,6 +10,25 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
 
     connect(timer_render, SIGNAL(timeout()), this, SLOT(startRender()));
 
+    // Read map json
+    QFile file;
+    file.setFileName(":/map.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QString val = file.readAll();
+    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
+    QJsonObject mainObject = document.object();
+
+    m_tilemap.loadMap(mainObject);
+    scene.setSceneRect(0, 0, 800, 600);
+    scene.addItem(&m_tilemap);
+
+    scene.addItem(&m_player);
+
+    m_player.setFlag(QGraphicsItem::ItemIsFocusable);
+    m_player.setFocus();
+
+    m_entities.add(&m_player);
     qDebug() << "entities : " << m_entities.getEntities();
 
     for (Entity* e : m_entities.getEntities())
@@ -20,6 +40,8 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
     scene.setSceneRect(0, 0, 800, 600);
     setScene(&scene);
 
+    setBackgroundBrush(QBrush(QColor::fromRgb(162, 216, 255)));
+
     sec_timer = new QElapsedTimer();
     update_for_sec = 0;
 
@@ -28,8 +50,30 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
 
 void Scene::doDelta()
 {
+    bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
+    bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
+    bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
+
+    m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
+
     m_entities.doDelta(main_timer);
-    qDebug() << scene.items();
+
+    for(auto item : m_player.collidingItems()) {
+        if (Tile* tile = qgraphicsitem_cast<Tile*>(item)) {
+            if (tile->hasCollision()) {
+                CollisionHandler::playerTile(&m_player, tile, m_tilemap.getOffsetX());
+            }
+        }
+    }
+
+    m_tilemap.update();
+    m_tilemap.updatePlayerPosition(m_player.getPosition());
+}
+
+bool Scene::tileExistsAt(QPoint position)
+{
+    QGraphicsItem *item = itemAt(position);
+    return item != nullptr && qgraphicsitem_cast<Tile*>(item) != nullptr;
 }
 
 QGraphicsScene * Scene::getScene()

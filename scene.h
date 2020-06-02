@@ -3,6 +3,10 @@
 
 #include "entity.h"
 #include "entitymanager.h"
+#include "TileSet.h"
+#include "CenteredTileMap.h"
+#include "Player.h"
+#include "CollisionHandler.h"
 
 #include <QGraphicsView>
 #include <QElapsedTimer>
@@ -22,10 +26,15 @@ private:
     QTimer *timer_render;
     int update_for_sec;
 
+    TileSet& m_tileset;
+    CenteredTileMap m_tilemap;
+    Player m_player;
+
     void doDelta();
+    bool tileExistsAt(QPoint position);
 
 public:
-    Scene(EntityManager& entities, QWidget *parent=0);
+    Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
     QGraphicsScene * getScene();
 
 public slots:

@@ -10,19 +10,19 @@
 class Entity : public QGraphicsItem
 {
 public:
-    Entity(QPointF position, int x_size, int y_size);
+    Entity(QPoint position, QPoint size);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-    void delta(qint64 elapsed);
+    virtual void delta(qint64 elapsed) = 0;
+
+    QPoint getPosition() { return m_position; }
 
 protected:
-    QPointF m_position;
+    QPoint m_position;
+    QPoint m_size;
 
 private:
-    int m_y_size, m_x_size;
-    QString m_descriptorName = "";
     qint64 m_lastCall = 0;
 };
 

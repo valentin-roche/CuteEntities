@@ -12,12 +12,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     EntityManager entities;
-
-    Entity ent {QPointF(100, 100), 32, 32};
-
-    entities.add(&ent);
-
-    Scene * view = new Scene(entities);
+    TileSet tileset {":/tileset.json"};
+    Scene * view = new Scene(entities, tileset);
 
     view->show();
 

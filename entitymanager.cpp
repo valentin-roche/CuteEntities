@@ -8,7 +8,7 @@ EntityManager::EntityManager()
 void EntityManager::add(Entity* ent)
 {
     m_entities << ent;
-    qDebug() << m_entities;
+    //qDebug() << m_entities;
 }
 
 void EntityManager::doDelta(QElapsedTimer* timer)
