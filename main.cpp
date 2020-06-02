@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
     Scene * view = new Scene(entities);
 
     view->show();
-    view->doDelta();
 
     return a.exec();
 }

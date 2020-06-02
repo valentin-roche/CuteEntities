@@ -6,7 +6,8 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
 
     timer_render = new QTimer();
     timer_render->setSingleShot(true);
-    connect(timer_render, SIGNAL(timeout()), this, SLOT(doDelta()));
+
+    connect(timer_render, SIGNAL(timeout()), this, SLOT(startRender()));
 
     qDebug() << "entities : " << m_entities.getEntities();
 
@@ -21,22 +22,8 @@ Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m
 
     sec_timer = new QElapsedTimer();
     update_for_sec = 0;
-    qDebug() << QString::number(sec_timer->elapsed());
-    while(true)
-    {
-        if (sec_timer->elapsed() < 990)
-        {
-            update_for_sec ++;
-        }
-        else
-        {
-            update_for_sec = 0;
-            sec_timer->restart();
-        }
-        timer_render->start(1000 - sec_timer->elapsed() / 60 - update_for_sec);
-        QApplication::processEvents();
-    }
 
+    timer_render->start(0);
 }
 
 void Scene::doDelta()
@@ -48,4 +35,21 @@ void Scene::doDelta()
 QGraphicsScene * Scene::getScene()
 {
     return &scene;
+}
+
+void Scene::startRender()
+{
+    qDebug() << "Update " << update_for_sec << " elapsed : " << QString::number(sec_timer->elapsed());
+    if (sec_timer->elapsed() < 990)
+    {
+        update_for_sec ++;
+    }
+    else
+    {
+        update_for_sec = 0;
+        sec_timer->restart();
+    }
+    this->doDelta();
+    qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
+    timer_render->start((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
 }

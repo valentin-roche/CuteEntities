@@ -22,13 +22,14 @@ private:
     QTimer *timer_render;
     int update_for_sec;
 
+    void doDelta();
+
 public:
     Scene(EntityManager& entities, QWidget *parent=0);
     QGraphicsScene * getScene();
 
 public slots:
-    void doDelta();
-
+    void startRender();
 };
 
 #endif // SCENE_H
