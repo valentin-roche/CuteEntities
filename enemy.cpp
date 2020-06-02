@@ -49,7 +49,7 @@ void Enemy::delta(qint64 elapsed)
     m_position.setY(m_position.y() + m_velocity.y());
 
     // Calculate display position
-    setPos(m_position.x(), m_position.y());
+    setPos(m_position.x() + m_tilemapOffset, m_position.y());
 
     qDebug() << "Enemy at : " << m_position.x() << ";" << m_position.y();
 }

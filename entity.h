@@ -19,9 +19,12 @@ public:
     QPoint getPosition() { return m_position; }
     void setPosition(QPoint newPos) { m_position = newPos; }
 
+    void setTileMapOffset(int offset) { m_tilemapOffset = offset; }
 protected:
     QPoint m_position;
     QPoint m_size;
+
+    int m_tilemapOffset = 0;
 
 private:
     qint64 m_lastCall = 0;
