@@ -7,7 +7,7 @@ class CenteredTileMap : public TileMap {
 
 public:
     CenteredTileMap(TileSet* tileset, QPoint viewSize);
-    CenteredTileMap(TileSet* tileset, QJsonObject map, QPoint viewSize);
+    CenteredTileMap(TileSet* tileset, QJsonObject size, QJsonArray tiles, QPoint viewSize);
 
     void setViewSize(QPoint viewSize);
     void updatePlayerPosition(QPoint playerPosition);

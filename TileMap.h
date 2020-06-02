@@ -17,9 +17,9 @@ class TileMap : public QGraphicsItemGroup {
 
 public:
     TileMap(TileSet* tileset);
-    TileMap(TileSet* tileset, QJsonObject map);
+    TileMap(TileSet* tileset, QJsonObject size, QJsonArray tiles);
 
-    void loadMap(QJsonObject map);
+    void loadMap(QJsonObject size, QJsonArray tiles);
 
     void enableTile(QPointF position);
     void enableTile(QPointF position, QString descriptorName);

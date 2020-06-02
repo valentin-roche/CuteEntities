@@ -4,16 +4,15 @@ TileMap::TileMap(TileSet* tileset) :
     m_size({0, 0}), m_tileSize(tileset->getTileSize()), m_tileset(tileset)
 {}
 
-TileMap::TileMap(TileSet *tileset, QJsonObject map) :
+TileMap::TileMap(TileSet *tileset, QJsonObject size, QJsonArray tiles) :
     m_tileSize(tileset->getTileSize()), m_tileset(tileset)
 {
-    loadMap(map);
+    loadMap(size, tiles);
 }
 
-void TileMap::loadMap(QJsonObject map)
+void TileMap::loadMap(QJsonObject size, QJsonArray tiles)
 {
     // Read map size
-    QJsonObject size = map["size"].toObject();
     m_size = {size["x"].toInt(), size["y"].toInt()};
 
     // Create tiles
@@ -24,7 +23,6 @@ void TileMap::loadMap(QJsonObject map)
     }
 
     // Read tiles
-    QJsonArray tiles = map["map"].toArray();
 
     for (auto tileInfoRef : tiles) {
         QJsonObject tileInfo = tileInfoRef.toObject();

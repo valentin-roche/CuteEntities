@@ -6,8 +6,8 @@ CenteredTileMap::CenteredTileMap(TileSet *tileset, QPoint viewSize)
 
 }
 
-CenteredTileMap::CenteredTileMap(TileSet *tileset, QJsonObject map, QPoint viewSize)
-    : TileMap(tileset, map), m_viewSize(viewSize)
+CenteredTileMap::CenteredTileMap(TileSet *tileset, QJsonObject size, QJsonArray tiles, QPoint viewSize)
+    : TileMap(tileset, size, tiles), m_viewSize(viewSize)
 {
     //disableAll();
 }
