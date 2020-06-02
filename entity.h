@@ -10,7 +10,7 @@
 class Entity : public QGraphicsItem
 {
 public:
-    Entity(QPointF position, int x_size, int y_size);
+    Entity(QPoint position, int x_size, int y_size);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -18,7 +18,7 @@ public:
     void delta(qint64 elapsed);
 
 protected:
-    QPointF m_position;
+    QPoint m_position;
 
 private:
     int m_y_size, m_x_size;

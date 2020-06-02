@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity(QPointF position, int x_size, int y_size) : m_position(position), m_y_size(y_size), m_x_size(x_size)
+Entity::Entity(QPoint position, int x_size, int y_size) : m_position(position), m_y_size(y_size), m_x_size(x_size)
 {
 }
 

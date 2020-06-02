@@ -2,6 +2,7 @@
 
 Scene::Scene(EntityManager& entities, QWidget *parent): QGraphicsView(parent), m_entities(entities)
 {
+    load_from_json();
     main_timer = new QElapsedTimer();
 
     timer_render = new QTimer();
@@ -52,4 +53,26 @@ void Scene::startRender()
     this->doDelta();
     qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
     timer_render->start((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
+}
+
+void Scene::load_from_json()
+{
+    //Load map and entities
+    QFile file;
+    file.setFileName(":/map.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QString val = file.readAll();
+    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
+    QJsonObject mainObject = document.object();
+
+     QJsonObject size = mainObject["size"].toObject();
+     QJsonArray tiles = mainObject["map"].toArray();
+     qDebug() << "size : " << size;
+     qDebug() << "tiles : " << tiles;
+     //m_tilemap.loadMap(size, tiles);
+
+
+     QJsonArray ent = mainObject["entities"].toArray();
+     m_entities.load_from_json(ent);
 }

@@ -9,6 +9,10 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include <QApplication>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 class Scene : public QGraphicsView
 {
@@ -23,6 +27,7 @@ private:
     int update_for_sec;
 
     void doDelta();
+    void load_from_json();
 
 public:
     Scene(EntityManager& entities, QWidget *parent=0);

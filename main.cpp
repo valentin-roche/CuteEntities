@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 
     EntityManager entities;
 
-    Entity ent {QPointF(100, 100), 32, 32};
+    //Entity ent {QPointF(100, 100), 32, 32};
 
-    entities.add(&ent);
+    //entities.add(&ent);
 
     Scene * view = new Scene(entities);
 
