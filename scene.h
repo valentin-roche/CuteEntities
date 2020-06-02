@@ -13,6 +13,10 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include <QApplication>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 class Scene : public QGraphicsView
 {
@@ -32,6 +36,7 @@ private:
 
     void doDelta();
     bool tileExistsAt(QPoint position);
+    void load_from_json();
 
 public:
     Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
