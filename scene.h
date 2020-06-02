@@ -41,9 +41,16 @@ private:
 public:
     Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
     QGraphicsScene * getScene();
+    void calculateCollisions();
 
 public slots:
     void startRender();
+};
+
+struct level_info
+{
+    int nb_coins;
+
 };
 
 #endif // SCENE_H

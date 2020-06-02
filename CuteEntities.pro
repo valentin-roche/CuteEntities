@@ -23,6 +23,8 @@ SOURCES += \
     Tile.cpp \
     TileMap.cpp \
     TileSet.cpp \
+    basicai.cpp \
+    enemy.cpp \
     entity.cpp \
     entitymanager.cpp \
     main.cpp \
@@ -36,6 +38,8 @@ HEADERS += \
     Tile.h \
     TileMap.h \
     TileSet.h \
+    basicai.h \
+    enemy.h \
     entity.h \
     entitymanager.h \
     scene.h

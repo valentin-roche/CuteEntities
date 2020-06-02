@@ -102,4 +102,6 @@ void Player::delta(qint64 elapsed)
     }
 
     setPos(displayXPosition, m_position.y());
+
+    //qDebug() << "Player at : " << m_position.x() << ";" << m_position.y();
 }

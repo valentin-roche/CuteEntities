@@ -17,6 +17,7 @@ public:
     virtual void delta(qint64 elapsed) = 0;
 
     QPoint getPosition() { return m_position; }
+    void setPosition(QPoint newPos) { m_position = newPos; }
 
 protected:
     QPoint m_position;

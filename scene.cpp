@@ -3,6 +3,7 @@
 Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     QGraphicsView(parent), m_entities(entities), m_tileset(tileset), m_tilemap(&tileset, {800, 20}), m_player({800, 600})
 {
+    m_entities.setPlayer(&m_player);
     load_from_json();
     main_timer = new QElapsedTimer();
 
@@ -39,6 +40,7 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
 
 void Scene::doDelta()
 {
+    calculateCollisions();
     bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
     bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
     bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
@@ -59,6 +61,19 @@ void Scene::doDelta()
     m_tilemap.updatePlayerPosition(m_player.getPosition());
 }
 
+void Scene::calculateCollisions()
+{
+    for (Entity *e : m_entities.getEntities())
+    {
+        if(MovingEntity* ent = qgraphicsitem_cast<MovingEntity*>(e))
+        {
+            ent->setDownTileEntity(tileExistsAt({(int) ent->pos().x(), (int) (ent->pos().y() + ent->boundingRect().height() + 2)}));
+            ent->setRightTileEntity(tileExistsAt({(int) (ent->pos().x() + ent->boundingRect().width()) + 2, (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
+            ent->setLeftTileEntity(tileExistsAt({(int) (ent->pos().x() - 2), (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
+        }
+    }
+}
+
 bool Scene::tileExistsAt(QPoint position)
 {
     QGraphicsItem *item = itemAt(position);
@@ -73,7 +88,7 @@ QGraphicsScene * Scene::getScene()
 void Scene::startRender()
 {
     //qDebug() << "Update " << update_for_sec << " elapsed : " << QString::number(sec_timer->elapsed());
-    if (sec_timer->elapsed() < 1000 && update_for_sec < 60)
+    if (sec_timer->elapsed() < 1000 && update_for_sec < 59)
     {
         update_for_sec ++;
     }
@@ -104,5 +119,5 @@ void Scene::load_from_json()
 
 
     QJsonArray ent = mainObject["entities"].toArray();
-    m_entities.load_from_json(ent);
+    m_entities.loadFromJson(ent);
 }
