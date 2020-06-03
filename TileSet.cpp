@@ -65,6 +65,26 @@ bool TileSet::hasCollision(QString name)
     return getTileDescriptor(name).collision;
 }
 
+bool TileSet::hasWin(QString name)
+{
+    return getTileDescriptor(name).win;
+}
+
+bool TileSet::hasKill(QString name)
+{
+    return getTileDescriptor(name).kill;
+}
+
+bool TileSet::hasCollapse(QString name)
+{
+    return getTileDescriptor(name).collapse;
+}
+
+bool TileSet::hasBounce(QString name)
+{
+    return getTileDescriptor(name).bounce;
+}
+
 const TileSet::TileDescriptor &TileSet::getTileDescriptor(QString name)
 {
     auto descriptor = std::find_if(m_tileDescriptors.begin(), m_tileDescriptors.end(), [&name](const TileDescriptor& value) {
@@ -80,6 +100,18 @@ void TileSet::addTileDescriptor(QJsonObject &descriptor)
     QJsonObject tilePositionObject = descriptor["position"].toObject();
     QPoint tilePosition = {tilePositionObject["x"].toInt(), tilePositionObject["y"].toInt()};
 
-    m_tileDescriptors.push_back({tileName, tilePosition, descriptor["collision"].toBool()});
+    bool collapse = false;
+    if (descriptor.contains("collapse") && descriptor["collapse"].toBool()) collapse = true;
+
+    bool win = false;
+    if (descriptor.contains("win") && descriptor["win"].toBool()) win = true;
+
+    bool kill = false;
+    if (descriptor.contains("kill") && descriptor["kill"].toBool()) kill = true;
+
+    bool bounce = false;
+    if (descriptor.contains("bounce") && descriptor["bounce"].toBool()) bounce = true;
+
+    m_tileDescriptors.push_back({tileName, tilePosition, descriptor["collision"].toBool(), win, kill, collapse, bounce});
 }
 

@@ -2,15 +2,11 @@
 
 CenteredTileMap::CenteredTileMap(TileSet *tileset, QPoint viewSize)
     : TileMap(tileset), m_viewSize(viewSize)
-{
-
-}
+{}
 
 CenteredTileMap::CenteredTileMap(TileSet *tileset, QJsonObject size, QJsonArray tiles, QPoint viewSize)
     : TileMap(tileset, size, tiles), m_viewSize(viewSize)
-{
-    //disableAll();
-}
+{}
 
 void CenteredTileMap::setViewSize(QPoint viewSize)
 {
@@ -19,6 +15,18 @@ void CenteredTileMap::setViewSize(QPoint viewSize)
 
 void CenteredTileMap::updatePlayerPosition(QPoint playerPosition)
 {
+    while (!m_collapseTimers.empty()) {
+        auto & timer = m_collapseTimers[0];
+
+        if (timer.elapsed() >= collapseDelayMs) {
+            disableTile(m_collapsePositions[0]);
+            m_collapseTimers.pop_front();
+            m_collapsePositions.pop_front();
+        } else {
+            break;
+        }
+    }
+
     // Convert player pixel position into tile position
     QPoint tilePlayerPosition {(int) (playerPosition.x() / getTileSize().x()), (int) (playerPosition.y() / getTileSize().y())};
 
@@ -52,4 +60,11 @@ void CenteredTileMap::updatePlayerPosition(QPoint playerPosition)
 
     setPos(offsetX, pos().y());
     m_offsetX = offsetX;
+}
+
+void CenteredTileMap::collapseTile(QPoint position)
+{
+    m_collapseTimers.push_back(QElapsedTimer{});
+    m_collapseTimers[m_collapseTimers.size() - 1].start();
+    m_collapsePositions.push_back(position);
 }

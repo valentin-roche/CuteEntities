@@ -28,9 +28,7 @@ private:
         Bottom, Top
     };
 
-
     static RectPoints getPoints(QGraphicsItem *item, int offset = 0);
-
 };
 
 #endif // COLLISIONHANDLER_H

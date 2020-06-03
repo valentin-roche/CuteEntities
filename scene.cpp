@@ -43,6 +43,17 @@ void Scene::doDelta()
     bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
     bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
 
+    auto *itemUnder = itemAt({(int) m_player.pos().x() + (int) (m_player.boundingRect().width() / 2),
+                              (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
+    if (Tile *tileUnder = qgraphicsitem_cast<Tile*>(itemUnder)) {
+        if (tileUnder->hasBounce()) {
+            m_player.bounce(20);
+        }
+        if (tileUnder->hasCollapse()) {
+            m_tilemap.collapseTile(tileUnder->getTilePosition());
+        }
+    }
+
     m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
     m_player.setFocus();
     m_entities.doDelta(main_timer);
@@ -51,6 +62,16 @@ void Scene::doDelta()
         if (Tile* tile = qgraphicsitem_cast<Tile*>(item)) {
             if (tile->hasCollision()) {
                 CollisionHandler::playerTile(&m_player, tile, m_tilemap.getOffsetX());
+
+                if (tile->hasWin()) {
+                    qDebug() << "Player won";
+                } else if (tile->hasKill()) {
+                    qDebug() << "Player loose";
+                }
+
+                if (tile->hasCollapse()) {
+                    m_tilemap.collapseTile(tile->getTilePosition());
+                }
             }
         }
     }
@@ -62,7 +83,8 @@ void Scene::doDelta()
 bool Scene::tileExistsAt(QPoint position)
 {
     QGraphicsItem *item = itemAt(position);
-    return item != nullptr && qgraphicsitem_cast<Tile*>(item) != nullptr;
+    auto *tile = qgraphicsitem_cast<Tile*>(item);
+    return item != nullptr && tile != nullptr && tile->isEnabled();
 }
 
 QGraphicsScene * Scene::getScene()
@@ -73,7 +95,7 @@ QGraphicsScene * Scene::getScene()
 void Scene::startRender()
 {
     //qDebug() << "Update " << update_for_sec << " elapsed : " << QString::number(sec_timer->elapsed());
-    if (sec_timer->elapsed() < 1000 && update_for_sec < 60)
+    if (sec_timer->elapsed() < 1000 && update_for_sec < 59)
     {
         update_for_sec ++;
     }

@@ -16,3 +16,9 @@ void MovingEntity::correctCollision(QPoint correction)
         m_position.setY(m_position.y() + correction.y());
     }
 }
+
+void MovingEntity::bounce(int intensity)
+{
+    m_velocity.setY(m_velocity.y() - intensity);
+    m_position.setY(m_position.y() - 2);
+}

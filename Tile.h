@@ -10,11 +10,13 @@
 class Tile : public QGraphicsItem
 {
 public:
-    Tile(QPointF position, TileSet& tileset);
+    Tile(QPoint tilePosition, QPointF position, TileSet& tileset);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
+
+    QPoint getTilePosition() { return m_tilePosition; }
 
     void enable() { m_enabled = true; };
     void enable(QString descriptorName) {
@@ -27,12 +29,14 @@ public:
     bool hasCollision();
     bool hasWin();
     bool hasKill();
-    bool hasDisappear();
+    bool hasCollapse();
+    bool hasBounce();
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
 
 private:
+    QPoint m_tilePosition;
     QPointF m_position;
     QPointF m_tileSize;
     TileSet& m_tileset;
