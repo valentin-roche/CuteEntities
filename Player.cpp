@@ -69,7 +69,7 @@ void Player::delta(qint64 elapsed)
     // Gravity
     if (!m_downTileEntity) {
         m_jumpAvailable = false;
-        m_velocity.setY(m_velocity.y() + gravityIntencity);
+        m_velocity.setY(m_velocity.y() + gravityIntancity);
     } else {
         m_jumpAvailable = true;
     }

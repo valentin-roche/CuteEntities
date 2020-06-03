@@ -10,8 +10,6 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
 
-    void setTileArround(bool leftTile, bool rightTile, bool downTile);
-
     void delta(qint64 elapsed) override;
 
     //hitPlayer();

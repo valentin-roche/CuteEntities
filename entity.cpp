@@ -15,4 +15,3 @@ QPainterPath Entity::shape() const
     path.addRect(0, 0, m_size.x(), m_size.y());
     return path;
 }
-

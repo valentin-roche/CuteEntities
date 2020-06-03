@@ -24,7 +24,7 @@ protected:
     bool m_downTileEntity = false;
 
     static constexpr int maxFallingVelocity = 3;
-    static constexpr float gravityIntencity = 1;
+    static constexpr float gravityIntancity = 1;
 };
 
 #endif // MOVINGENTITY_H

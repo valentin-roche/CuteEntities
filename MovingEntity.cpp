@@ -17,6 +17,36 @@ void MovingEntity::correctCollision(QPoint correction)
     }
 }
 
+bool MovingEntity::downTileEntity() const
+{
+    return m_downTileEntity;
+}
+
+void MovingEntity::setDownTileEntity(bool downTileEntity)
+{
+    m_downTileEntity = downTileEntity;
+}
+
+bool MovingEntity::rightTileEntity() const
+{
+    return m_rightTileEntity;
+}
+
+void MovingEntity::setRightTileEntity(bool rightTileEntity)
+{
+    m_rightTileEntity = rightTileEntity;
+}
+
+bool MovingEntity::leftTileEntity() const
+{
+    return m_leftTileEntity;
+}
+
+void MovingEntity::setLeftTileEntity(bool leftTileEntity)
+{
+    m_leftTileEntity = leftTileEntity;
+}
+
 void MovingEntity::bounce(int intensity)
 {
     m_velocity.setY(m_velocity.y() - intensity);
