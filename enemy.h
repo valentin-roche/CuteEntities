@@ -18,7 +18,7 @@ public:
 
 private:
     QPoint m_viewSize;
-    int direction = 0;
+    int direction = BasicAI::RIGHT;
     int stepDirection = 0;
     bool m_jumpAvailable = false;
 

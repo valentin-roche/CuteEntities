@@ -24,18 +24,15 @@ void Enemy::delta(qint64 elapsed)
 
     // Calculate velocity
     float velocityX = m_velocity.x();
-    qDebug() << "direction" << direction;
-    qDebug() << "newDirection" << newDirection;
-    qDebug() << "velocity" << velocityX;
-    if (newDirection > 0) {
-        velocityX = -0.5;
-    }
-    else {
-       velocityX = 0.5;
-    }
-    m_velocity.setX(velocityX);
+
+
     if (direction != newDirection){
         stepDirection = 0;
+        qDebug() << "direction" << direction;
+        qDebug() << "newDirection" << newDirection;
+        velocityX = newDirection;
+        m_velocity.setX(velocityX);
+        qDebug() << "velocity" << velocityX;
         direction = newDirection;
     }
 
