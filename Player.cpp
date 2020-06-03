@@ -36,22 +36,17 @@ void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWid
     painter->fillRect(QRectF{0, 0, 20, 30}, Qt::red);
 }
 
-void Player::setTileArround(bool leftTile, bool rightTile, bool downTile)
-{
-    m_leftTile = leftTile;
-    m_rightTile = rightTile;
-    m_downTile = downTile;
-}
+
 
 void Player::delta(qint64 elapsed)
 {
     // Calculate velocity
     float velocityX = m_velocity.x();
 
-    if (m_leftPressed && !m_leftTile){
+    if (m_leftPressed && !m_leftTileEntity){
         if (velocityX == 0) velocityX -= 0.5;
         velocityX -= 1;
-    } else if (m_rightPressed && !m_rightTile){
+    } else if (m_rightPressed && !m_rightTileEntity){
         if (velocityX == 0) velocityX += 0.5;
         velocityX += 1;
     } else {
@@ -74,7 +69,7 @@ void Player::delta(qint64 elapsed)
     }
 
     // Gravity
-    if (!m_downTile) {
+    if (!m_downTileEntity) {
         m_jumpAvailable = false;
         m_velocity.setY(m_velocity.y() + 1);
     } else {

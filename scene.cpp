@@ -41,11 +41,11 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
 void Scene::doDelta()
 {
     calculateCollisions();
-    bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
-    bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
-    bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
+//    bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
+//    bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
+//    bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
 
-    m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
+    //m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
     m_player.setFocus();
     m_entities.doDelta(main_timer);
 

@@ -19,16 +19,12 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
 
-    void setTileArround(bool leftTile, bool rightTile, bool downTile);
+    //void setTileArround(bool leftTile, bool rightTile, bool downTile);
 
     void delta(qint64 elapsed) override;
 
 private:
     QPoint m_viewSize;
-
-    bool m_leftTile = false;
-    bool m_rightTile = false;
-    bool m_downTile = false;
 
     bool m_jumpAvailable = false;
 

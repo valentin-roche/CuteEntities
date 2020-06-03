@@ -7,14 +7,17 @@ BasicAI::BasicAI()
 
 int BasicAI::predictNextMove(int stepDirection, int direction, bool collision, int collisionDirection)
 {
-    if (direction == 0 ){
+    if (direction == 0){
         return BasicAI::LEFT;
     }
-    if (stepDirection > 15) {
+    if (stepDirection > 50) {
         if (direction == BasicAI::LEFT) {
             return BasicAI::RIGHT;
         }
-        return BasicAI::LEFT;
+        else if (direction == BasicAI::RIGHT) {
+            return BasicAI::LEFT;
+        }
+
     }
 
     if (collision) {

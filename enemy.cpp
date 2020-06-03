@@ -24,10 +24,18 @@ void Enemy::delta(qint64 elapsed)
 
     // Calculate velocity
     float velocityX = m_velocity.x();
-
+    qDebug() << "direction" << direction;
+    qDebug() << "newDirection" << newDirection;
+    qDebug() << "velocity" << velocityX;
+    if (newDirection > 0) {
+        velocityX = -0.5;
+    }
+    else {
+       velocityX = 0.5;
+    }
+    m_velocity.setX(velocityX);
     if (direction != newDirection){
         stepDirection = 0;
-        m_velocity.setX(velocityX);
         direction = newDirection;
     }
 
@@ -40,8 +48,9 @@ void Enemy::delta(qint64 elapsed)
     }
 
     // Enforce maximum velocity
-    if (velocityX > 3) velocityX = 3;
-    if (velocityX < -3) velocityX = -3;
+    if (velocityX > 0.5) velocityX = 0.5;
+    if (velocityX < -0.5) velocityX = -0.5;
+    //qDebug() << velocityX;
 
     if (m_velocity.y() > 3) m_velocity.setY(3);
 
@@ -50,6 +59,7 @@ void Enemy::delta(qint64 elapsed)
 
     // Calculate display position
     setPos(m_position.x() + m_tilemapOffset, m_position.y());
+    stepDirection++;
 
-    qDebug() << "Enemy at : " << m_position.x() << ";" << m_position.y();
+
 }
