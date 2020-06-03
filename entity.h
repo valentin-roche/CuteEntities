@@ -6,7 +6,7 @@
 #include <QStyleOptionGraphicsItem>
 #include <QStaticText>
 #include <QDebug>
-
+#include <QPointF>
 class Entity : public QGraphicsItem
 {
 public:

@@ -23,6 +23,8 @@ public:
     QList<Entity*> getEntities();
     void loadFromJson(QJsonArray json_ent_array);
     void setPlayer(Player *player);
+    void killEnemy(Enemy *enemy);
+    void killPlayer(Player *player);
 };
 
 #endif // ENTITYMANAGER_H

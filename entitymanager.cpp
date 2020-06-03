@@ -53,3 +53,15 @@ void EntityManager::setPlayer(Player *player)
 {
     m_player = player;
 }
+
+void EntityManager::killEnemy(Enemy *enemy)
+{
+    m_entities.removeAt(m_entities.indexOf(enemy));
+    delete(enemy);
+}
+
+void EntityManager::killPlayer(Player *player)
+{
+    qDebug() << "DED NOT BIG SUPRISE";
+    //delete(player);
+}

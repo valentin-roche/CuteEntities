@@ -15,7 +15,8 @@ public:
     void delta(qint64 elapsed) override;
 
     //hitPlayer();
-
+    enum { Type = UserType + 10 };
+    int type() const override { return Type; }
 private:
     QPoint m_viewSize;
     int direction = BasicAI::RIGHT;

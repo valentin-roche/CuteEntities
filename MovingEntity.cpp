@@ -46,3 +46,4 @@ void MovingEntity::setLeftTileEntity(bool leftTileEntity)
 {
     m_leftTileEntity = leftTileEntity;
 }
+

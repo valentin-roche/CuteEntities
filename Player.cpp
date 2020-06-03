@@ -100,3 +100,4 @@ void Player::delta(qint64 elapsed)
 
     //qDebug() << "Player at : " << m_position.x() << ";" << m_position.y();
 }
+

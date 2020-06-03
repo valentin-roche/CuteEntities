@@ -6,13 +6,16 @@
 #include <QGraphicsItem>
 
 #include "Player.h"
+#include "enemy.h"
 #include "Tile.h"
+#include "entitymanager.h"
 
 
 class CollisionHandler {
 
 public:
     static void playerTile(Player* player, Tile* tile, int mapOffset);
+    static void playerCollide(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager);
 
 private:
     struct RectPoints {
@@ -27,7 +30,8 @@ private:
         Left, Right,
         Bottom, Top
     };
-
+signals:
+    void gameOver(const QString& text) const;
 
     static RectPoints getPoints(QGraphicsItem *item, int offset = 0);
 

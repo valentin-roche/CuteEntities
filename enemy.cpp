@@ -28,11 +28,8 @@ void Enemy::delta(qint64 elapsed)
 
     if (direction != newDirection){
         stepDirection = 0;
-        qDebug() << "direction" << direction;
-        qDebug() << "newDirection" << newDirection;
         velocityX = newDirection;
         m_velocity.setX(velocityX);
-        qDebug() << "velocity" << velocityX;
         direction = newDirection;
     }
 
@@ -60,3 +57,4 @@ void Enemy::delta(qint64 elapsed)
 
 
 }
+

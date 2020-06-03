@@ -29,9 +29,7 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     }
 
     setScene(&scene);
-
     setBackgroundBrush(QBrush(QColor::fromRgb(162, 216, 255)));
-
     sec_timer = new QElapsedTimer();
     update_for_sec = 0;
 
@@ -41,11 +39,6 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
 void Scene::doDelta()
 {
     calculateCollisions();
-//    bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
-//    bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
-//    bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
-
-    //m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
     m_player.setFocus();
     m_entities.doDelta(main_timer);
 
@@ -53,6 +46,12 @@ void Scene::doDelta()
         if (Tile* tile = qgraphicsitem_cast<Tile*>(item)) {
             if (tile->hasCollision()) {
                 CollisionHandler::playerTile(&m_player, tile, m_tilemap.getOffsetX());
+            }
+        }
+        if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
+            if(m_player.collidesWithItem(enemy) == true) {
+                CollisionHandler::playerCollide(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities);
+
             }
         }
     }

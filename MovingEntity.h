@@ -16,7 +16,6 @@ public:
 
     bool leftTileEntity() const;
     void setLeftTileEntity(bool leftTileEntity);
-
 protected:
     QPointF m_velocity;
     bool m_leftTileEntity = false;
