@@ -33,7 +33,7 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
 {
-    painter->fillRect(QRectF{0, 0, 20, 30}, Qt::red);
+    painter->fillRect(QRectF{0, 0, (float) m_size.x(), (float) m_size.y()}, Qt::red);
 }
 
 
@@ -44,25 +44,23 @@ void Player::delta(qint64 elapsed)
     float velocityX = m_velocity.x();
 
     if (m_leftPressed && !m_leftTileEntity){
-        if (velocityX == 0) velocityX -= 0.5;
-        velocityX -= 1;
+        velocityX -= acceleration;
     } else if (m_rightPressed && !m_rightTileEntity){
-        if (velocityX == 0) velocityX += 0.5;
-        velocityX += 1;
+        velocityX += acceleration;
     } else {
         // If no movement on x axis, slow down
         if (velocityX > 0) {
-            if (velocityX > 0.1) velocityX -= 0.1;
+            if (velocityX > deceleration) velocityX -= deceleration;
             else velocityX = 0;
         } else if (velocityX < 0){
-            if (velocityX < -0.1) velocityX += 0.1;
+            if (velocityX < -1 * deceleration) velocityX += deceleration;
             else velocityX = 0;
         }
     }
 
     // Jump
     if (m_upPressed && m_jumpAvailable){
-        m_velocity.setY(-10);
+        m_velocity.setY(-1 * jumpIntancity);
         m_position.setY(m_position.y() - 2);
         m_upPressed = false;
         m_jumpAvailable = false;
@@ -71,16 +69,16 @@ void Player::delta(qint64 elapsed)
     // Gravity
     if (!m_downTileEntity) {
         m_jumpAvailable = false;
-        m_velocity.setY(m_velocity.y() + 1);
+        m_velocity.setY(m_velocity.y() + gravityIntencity);
     } else {
         m_jumpAvailable = true;
     }
 
     // Enforce maximum velocity
-    if (velocityX > 3) velocityX = 3;
-    if (velocityX < -3) velocityX = -3;
+    if (velocityX > maxWalkingVelocity) velocityX = maxWalkingVelocity;
+    if (velocityX < -1 * maxWalkingVelocity) velocityX = -1 * maxWalkingVelocity;
 
-    if (m_velocity.y() > 3) m_velocity.setY(3);
+    if (m_velocity.y() > maxFallingVelocity) m_velocity.setY(maxFallingVelocity);
 
     m_velocity.setX(velocityX);
 

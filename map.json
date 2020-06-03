@@ -298,6 +298,34 @@
         },
         {
             "position": {
+                "x": 49,
+                "y": 10
+            },
+            "tile": "mushroom_red_left"
+        },
+        {
+            "position": {
+                "x": 50,
+                "y": 10
+            },
+            "tile": "mushroom_red_middle"
+        },
+        {
+            "position": {
+                "x": 51,
+                "y": 10
+            },
+            "tile": "mushroom_red_middle"
+        },
+        {
+            "position": {
+                "x": 52,
+                "y": 10
+            },
+            "tile": "mushroom_red_right"
+        },
+        {
+            "position": {
                 "x": 33,
                 "y": 11
             },

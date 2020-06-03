@@ -39,6 +39,18 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
 void Scene::doDelta()
 {
     calculateCollisions();
+
+    auto *itemUnder = itemAt({(int) m_player.pos().x() + (int) (m_player.boundingRect().width() / 2),
+                              (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
+    if (Tile *tileUnder = qgraphicsitem_cast<Tile*>(itemUnder)) {
+        if (tileUnder->hasBounce()) {
+            m_player.bounce(20);
+        }
+        if (tileUnder->hasCollapse()) {
+            m_tilemap.collapseTile(tileUnder->getTilePosition());
+        }
+    }
+
     m_player.setFocus();
     m_entities.doDelta(main_timer);
 
@@ -46,6 +58,16 @@ void Scene::doDelta()
         if (Tile* tile = qgraphicsitem_cast<Tile*>(item)) {
             if (tile->hasCollision()) {
                 CollisionHandler::playerTile(&m_player, tile, m_tilemap.getOffsetX());
+
+                if (tile->hasWin()) {
+                    qDebug() << "Player won";
+                } else if (tile->hasKill()) {
+                    qDebug() << "Player loose";
+                }
+
+                if (tile->hasCollapse()) {
+                    m_tilemap.collapseTile(tile->getTilePosition());
+                }
             }
         }
         if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
@@ -77,7 +99,8 @@ void Scene::calculateCollisions()
 bool Scene::tileExistsAt(QPoint position)
 {
     QGraphicsItem *item = itemAt(position);
-    return item != nullptr && qgraphicsitem_cast<Tile*>(item) != nullptr;
+    auto *tile = qgraphicsitem_cast<Tile*>(item);
+    return item != nullptr && tile != nullptr && tile->isEnabled();
 }
 
 QGraphicsScene * Scene::getScene()

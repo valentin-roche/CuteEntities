@@ -21,6 +21,10 @@ public:
         QString name;
         QPoint position;
         bool collision;
+        bool win;
+        bool kill;
+        bool collapse;
+        bool bounce;
     };
 
     TileSet(QString imagePath, QPoint tileSize, QPoint size, QPoint tileOffset = {0, 0});
@@ -31,6 +35,10 @@ public:
     QRectF getTileRect(QString name);
 
     bool hasCollision(QString name);
+    bool hasWin(QString name);
+    bool hasKill(QString name);
+    bool hasCollapse(QString name);
+    bool hasBounce(QString name);
 
     const TileDescriptor& getTileDescriptor(QString name);
 

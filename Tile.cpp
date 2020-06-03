@@ -1,6 +1,7 @@
 #include "Tile.h"
 
-Tile::Tile(QPointF position, TileSet& tileset) : m_position(position), m_tileSize(tileset.getTileSize()), m_tileset(tileset)
+Tile::Tile(QPoint tilePosition, QPointF position, TileSet& tileset) :
+    m_tilePosition(tilePosition), m_position(position), m_tileSize(tileset.getTileSize()), m_tileset(tileset)
 {
     setPos(position);
 }
@@ -27,4 +28,24 @@ void Tile::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidge
 bool Tile::hasCollision()
 {
     return isEnabled() && m_tileset.hasCollision(m_descriptorName);
+}
+
+bool Tile::hasWin()
+{
+    return isEnabled() && m_tileset.hasWin(m_descriptorName);
+}
+
+bool Tile::hasKill()
+{
+    return isEnabled() && m_tileset.hasKill(m_descriptorName);
+}
+
+bool Tile::hasCollapse()
+{
+    return isEnabled() && m_tileset.hasCollapse(m_descriptorName);
+}
+
+bool Tile::hasBounce()
+{
+    return isEnabled() && m_tileset.hasBounce(m_descriptorName);
 }

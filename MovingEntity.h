@@ -7,6 +7,7 @@ class MovingEntity : public Entity {
 public:
     MovingEntity(QPoint position, QPoint size);
     void correctCollision(QPoint correction);
+    void bounce(int intensity);
 
     bool downTileEntity() const;
     void setDownTileEntity(bool downTileEntity);
@@ -21,6 +22,9 @@ protected:
     bool m_leftTileEntity = false;
     bool m_rightTileEntity = false;
     bool m_downTileEntity = false;
+
+    static constexpr int maxFallingVelocity = 3;
+    static constexpr float gravityIntencity = 1;
 };
 
 #endif // MOVINGENTITY_H

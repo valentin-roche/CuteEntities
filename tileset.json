@@ -62,7 +62,8 @@
         {
             "name": "weak_ground",
             "position": {"x": 16, "y": 3},
-            "collision": true
+            "collision": true,
+            "collapse": true
         },
         {
             "name": "double_tube_top_left",
@@ -83,6 +84,24 @@
             "name": "double_tube_middle_right",
             "position": {"x": 13, "y": 34},
             "collision": true
+        },
+        {
+            "name": "mushroom_red_left",
+            "position": {"x": 32, "y": 12},
+            "collision": true,
+            "bounce": true
+        },
+        {
+            "name": "mushroom_red_middle",
+            "position": {"x": 33, "y": 12},
+            "collision": true,
+            "bounce": true
+        },
+        {
+            "name": "mushroom_red_right",
+            "position": {"x": 34, "y": 12},
+            "collision": true,
+            "bounce": true
         }
     ]
 }

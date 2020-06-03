@@ -33,8 +33,8 @@ private:
 signals:
     void gameOver(const QString& text) const;
 
+private:
     static RectPoints getPoints(QGraphicsItem *item, int offset = 0);
-
 };
 
 #endif // COLLISIONHANDLER_H

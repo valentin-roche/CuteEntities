@@ -18,7 +18,7 @@ void TileMap::loadMap(QJsonObject size, QJsonArray tiles)
     // Create tiles
     for (float y = 0.f; y < m_size.y(); y++) {
         for (float x = 0.f; x < m_size.x(); x++) {
-            m_tiles.push_back(new Tile {QPointF{x * m_tileSize.x(), y * m_tileSize.y()}, *m_tileset});
+            m_tiles.push_back(new Tile {QPoint{(int) x, (int) y}, QPointF{x * m_tileSize.x(), y * m_tileSize.y()}, *m_tileset});
         }
     }
 
