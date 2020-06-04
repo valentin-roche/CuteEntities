@@ -24,6 +24,7 @@ SOURCES += \
     TileMap.cpp \
     TileSet.cpp \
     basicai.cpp \
+    coin.cpp \
     enemy.cpp \
     entity.cpp \
     entitymanager.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     TileMap.h \
     TileSet.h \
     basicai.h \
+    coin.h \
     enemy.h \
     entity.h \
     entitymanager.h \
