@@ -31,8 +31,8 @@ private:
     QTimer *timer_render;
     int update_for_sec;
 
-    int m_nb_coins;
-    int m_nb_deaths;
+    int m_nb_coins = 0;
+    int m_nb_deaths = 0;
 
     TileSet& m_tileset;
     CenteredTileMap m_tilemap;

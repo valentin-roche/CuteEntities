@@ -55,6 +55,12 @@
             "collision": false
         },
         {
+            "name": "kill",
+            "position": {"x": 16, "y": 0},
+            "kill": true,
+            "collision": true
+        },
+        {
             "name": "question_box",
             "position": {"x": 15, "y": 0},
             "collision": true

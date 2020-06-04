@@ -38,7 +38,6 @@ void EntityManager::loadFromJson(QJsonArray json_ent_array)
 
         if (entType == "player")
         {
-            //qDebug() << "Setting  player's spawn point at : " << position;
             m_player->setPosition(position);
         }
         if (entType == "basicEnnemy")
@@ -79,10 +78,5 @@ void EntityManager::getCoin(Coin *coin)
 
 void EntityManager::clearEntities()
 {
-    for(Entity* e : m_entities)
-    {
-        delete(e);
-    }
     m_entities.clear();
-    delete(m_player);
 }

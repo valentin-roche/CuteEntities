@@ -72,7 +72,7 @@ void Scene::doDelta()
                 if (tile->hasWin()) {
                     qDebug() << "Player won";
                 } else if (tile->hasKill()) {
-                    qDebug() << "Player loose";
+                    m_entities.killPlayer(&m_player);
                 }
 
                 if (tile->hasCollapse()) {
@@ -137,8 +137,12 @@ void Scene::startRender()
         m_UI->updateTimer();
     }
     this->doDelta();
-    //qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
-    timer_render->start((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
+    int time = (1000 - sec_timer->elapsed()) / (60 - update_for_sec);
+    //TODO TROUVER UN MEILLEUR FIX
+    if (time < 0) {
+        time = 0;
+    }
+    timer_render->start(time);
 }
 
 void Scene::updateCoin()
@@ -151,14 +155,36 @@ void Scene::playerDeath()
 {
     m_nb_deaths++;
     m_UI->setNbDeath(m_nb_deaths);
+    m_nb_coins = 0;
+    m_UI->setNbCoin(m_nb_coins);
     reset();
 }
 
 void Scene::reset()
 {
+
+    //timer_render->stop();
+
+    for (QGraphicsItem *item : scene.items()) {
+        qDebug() << item;
+        if (item != &m_player && item != &m_tilemap && item != m_UI->display() && item->parentItem() != m_UI->display()) {
+            scene.removeItem(item);
+        }
+    }
+
     m_entities.clearEntities();
-    items().clear();
-    timer_render->stop();
+
+    m_entities.add(&m_player);
+    m_entities.setPlayer(&m_player);
+    load_from_json();
+
+    qDebug() << m_entities.getEntities();
+    for (Entity* e : m_entities.getEntities())
+    {
+        if (e != &m_player)
+            scene.addItem(e);
+        //qDebug() << "Ajout de l'entite : " << e;
+    }
 }
 
 void Scene::load_from_json()
@@ -175,7 +201,6 @@ void Scene::load_from_json()
     QJsonObject size = mainObject["size"].toObject();
     QJsonArray tiles = mainObject["map"].toArray();
     m_tilemap.loadMap(size, tiles);
-
 
     QJsonArray ent = mainObject["entities"].toArray();
     m_entities.loadFromJson(ent);
