@@ -63,15 +63,15 @@ void Scene::doDelta()
             if (tile->hasCollision()) {
                 CollisionHandler::playerTile(&m_player, tile, m_tilemap.getOffsetX());
 
-                if (tile->hasWin()) {
-                    qDebug() << "Player won";
-                } else if (tile->hasKill()) {
-                    qDebug() << "Player loose";
-                }
-
                 if (tile->hasCollapse()) {
                     m_tilemap.collapseTile(tile->getTilePosition());
                 }
+            }
+
+            if (tile->hasWin()) {
+                qDebug() << "Player won";
+            } else if (tile->hasKill()) {
+                qDebug() << "Player loose";
             }
         }
     }
@@ -84,7 +84,7 @@ bool Scene::tileExistsAt(QPoint position)
 {
     QGraphicsItem *item = itemAt(position);
     auto *tile = qgraphicsitem_cast<Tile*>(item);
-    return item != nullptr && tile != nullptr && tile->isEnabled();
+    return item != nullptr && tile != nullptr && tile->isEnabled() && tile->hasCollision();
 }
 
 QGraphicsScene * Scene::getScene()
