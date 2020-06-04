@@ -31,6 +31,9 @@ private:
     QTimer *timer_render;
     int update_for_sec;
 
+    int m_nb_coins;
+    int m_nb_deaths;
+
     TileSet& m_tileset;
     CenteredTileMap m_tilemap;
     Player m_player;
@@ -39,6 +42,8 @@ private:
     void doDelta();
     bool tileExistsAt(QPoint position);
     void load_from_json();
+
+    void reset();
 
 public:
     Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
@@ -49,12 +54,8 @@ public:
 
 public slots:
     void startRender();
-};
-
-struct level_info
-{
-    int nb_coins;
-
+    void updateCoin();
+    void playerDeath();
 };
 
 #endif // SCENE_H

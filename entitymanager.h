@@ -11,8 +11,10 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-class EntityManager
+class EntityManager : public QObject
 {
+    Q_OBJECT
+
 private:
     QList<Entity*> m_entities;
     Player *m_player;
@@ -27,6 +29,13 @@ public:
     void killEnemy(Enemy *enemy);
     void killPlayer(Player *player);
     void getCoin(Coin *coin);
+    void clearEntities();
+
+signals:
+    void coinGet();
+signals:
+    void playerDead();
+
 };
 
 #endif // ENTITYMANAGER_H

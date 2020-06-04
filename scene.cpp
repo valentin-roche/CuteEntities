@@ -11,6 +11,8 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     timer_render->setSingleShot(true);
 
     connect(timer_render, SIGNAL(timeout()), this, SLOT(startRender()));
+    connect(&m_entities, SIGNAL(coinGet()), this, SLOT(updateCoin()));
+    connect(&m_entities, SIGNAL(playerDead()), this, SLOT(playerDeath()));
 
     scene.setSceneRect(0, 0, 800, 600);
     scene.addItem(&m_tilemap);
@@ -23,12 +25,12 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     scene.addItem(m_UI->display());
 
     m_entities.add(&m_player);
-    qDebug() << "entities : " << m_entities.getEntities();
+    //qDebug() << "entities : " << m_entities.getEntities();
 
     for (Entity* e : m_entities.getEntities())
     {
         scene.addItem(e);
-        qDebug() << "Ajout de l'entite : " << e;
+        //qDebug() << "Ajout de l'entite : " << e;
     }
 
     setScene(&scene);
@@ -137,6 +139,26 @@ void Scene::startRender()
     this->doDelta();
     //qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
     timer_render->start((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
+}
+
+void Scene::updateCoin()
+{
+    m_nb_coins++;
+    m_UI->setNbCoin(m_nb_coins);
+}
+
+void Scene::playerDeath()
+{
+    m_nb_deaths++;
+    m_UI->setNbDeath(m_nb_deaths);
+    reset();
+}
+
+void Scene::reset()
+{
+    m_entities.clearEntities();
+    items().clear();
+    timer_render->stop();
 }
 
 void Scene::load_from_json()
