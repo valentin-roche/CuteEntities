@@ -1,8 +1,12 @@
 #include "Player.h"
 
-Player::Player(QPoint viewSize) : MovingEntity({0, 0}, {20, 30}), m_viewSize(viewSize)
+Player::Player(QPoint viewSize) : MovingEntity({0, 0}, {19, 30}), m_viewSize(viewSize)
 {
     m_position = {100, 100};
+    m_sprite.load(":/sprite_mario.png");
+    m_numberOfSprite = 3;
+    m_animated = true;
+
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -30,13 +34,6 @@ void Player::keyReleaseEvent(QKeyEvent *event)
         m_upPressed = false;
     }
 }
-
-void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
-{
-    painter->fillRect(QRectF{0, 0, (float) m_size.x(), (float) m_size.y()}, Qt::red);
-}
-
-
 
 void Player::delta(qint64 elapsed)
 {
@@ -96,6 +93,20 @@ void Player::delta(qint64 elapsed)
 
     setPos(displayXPosition, m_position.y());
 
-    //qDebug() << "Player at : " << m_position.x() << ";" << m_position.y();
+    // Animations
+    updateSpriteDirection();
+
+    if (!m_downTileEntity) {
+        m_animated = false;
+        m_currentSprite = 0;
+    } else {
+        m_animated = m_velocity.x() != 0;
+    }
+
+    if (!m_animated) {
+        m_currentSprite = 0;
+    }
+
+    updateSprite();
 }
 

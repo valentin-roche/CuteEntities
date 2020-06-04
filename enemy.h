@@ -7,12 +7,8 @@ class Enemy : public MovingEntity
 {
 public:
     Enemy(QPoint position, QPoint viewSize);
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-
     void delta(qint64 elapsed) override;
 
-    //hitPlayer();
     enum { Type = UserType + 10 };
     int type() const override { return Type; }
 private:

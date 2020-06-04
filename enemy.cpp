@@ -1,14 +1,13 @@
 #include "enemy.h"
 
-Enemy::Enemy(QPoint position, QPoint viewSize) : MovingEntity(position, {10, 10})
+Enemy::Enemy(QPoint position, QPoint viewSize) : MovingEntity(position, {17, 18})
 {
      m_position.setX(position.x());
      m_position.setY(position.y());
-}
 
-void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
-{
-    painter->fillRect(QRectF{0, 0, 10, 10}, Qt::black);
+     m_sprite.load(":/sprite_boomba.png");
+     m_numberOfSprite = 3;
+     m_animated = true;
 }
 
 void Enemy::delta(qint64 elapsed)
@@ -37,7 +36,6 @@ void Enemy::delta(qint64 elapsed)
     // Enforce maximum velocity
     if (velocityX > 0.5) velocityX = 0.5;
     if (velocityX < -0.5) velocityX = -0.5;
-    //qDebug() << velocityX;
 
     if (m_velocity.y() > maxFallingVelocity) m_velocity.setY(maxFallingVelocity);
 
@@ -48,6 +46,7 @@ void Enemy::delta(qint64 elapsed)
     setPos(m_position.x() + m_tilemapOffset, m_position.y());
     stepDirection++;
 
-
+    updateSpriteDirection();
+    updateSprite();
 }
 

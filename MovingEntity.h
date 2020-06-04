@@ -17,6 +17,7 @@ public:
 
     bool leftTileEntity() const;
     void setLeftTileEntity(bool leftTileEntity);
+
 protected:
     QPointF m_velocity;
     bool m_leftTileEntity = false;
@@ -25,6 +26,14 @@ protected:
 
     static constexpr int maxFallingVelocity = 3;
     static constexpr float gravityIntancity = 1;
+
+    enum MovingDirection {
+        Right = 0,
+        Left = 1
+    };
+
+    void updateSpriteDirection();
+    void updateSprite();
 };
 
 #endif // MOVINGENTITY_H
