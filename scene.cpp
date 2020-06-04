@@ -110,6 +110,8 @@ void Scene::calculateCollisions()
     for (Entity *e : m_entities.getEntities())
     {
         e->setTileMapOffset(m_tilemap.getOffsetX());
+        if (!e->getIsMoving()) continue;
+
         if(MovingEntity* ent = qgraphicsitem_cast<MovingEntity*>(e))
         {
             ent->setDownTileEntity(tileExistsAt({(int) ent->pos().x(), (int) (ent->pos().y() + ent->boundingRect().height() + 2)}));

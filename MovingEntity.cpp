@@ -2,7 +2,9 @@
 
 MovingEntity::MovingEntity(QPoint position, QPoint size)
     : Entity(position, size)
-{}
+{
+    isMoving = true;
+}
 
 void MovingEntity::correctCollision(QPoint correction)
 {

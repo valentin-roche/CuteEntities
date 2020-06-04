@@ -56,7 +56,7 @@
         },
         {
             "name": "kill",
-            "position": {"x": 16, "y": 0},
+            "position": {"x": 14, "y": 5},
             "kill": true,
             "collision": true
         },

@@ -24,6 +24,7 @@ public:
     void setPosition(QPoint newPos) { m_position = newPos; }
 
     void setTileMapOffset(int offset) { m_tilemapOffset = offset; }
+    bool getIsMoving() { return isMoving; }
 
 protected:
     QPoint m_position;
@@ -35,6 +36,8 @@ protected:
     bool m_animated = false;
     int m_numberOfSprite = 0;
     QElapsedTimer m_animationTimer;
+
+    bool isMoving = false;
 
     int m_tilemapOffset = 0;
 
