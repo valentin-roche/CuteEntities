@@ -70,15 +70,15 @@ void Scene::doDelta()
                 }
             }
         }
-        if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
-            if(m_player.collidesWithItem(enemy) == true) {
-                CollisionHandler::playerEnemy(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities);
 
-            }
+        if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
+            CollisionHandler::playerEnemy(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities);
         }
+
         if (Coin* coin = qgraphicsitem_cast<Coin*>(item)) {
             if(m_player.collidesWithItem(coin) == true) {
                 CollisionHandler::playerCoin(&m_player, coin, m_tilemap.getOffsetX(), &m_entities);
+                scene.removeItem(item);
             }
         }
     }

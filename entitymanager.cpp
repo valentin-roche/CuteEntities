@@ -69,12 +69,10 @@ void EntityManager::killEnemy(Enemy *enemy)
 void EntityManager::killPlayer(Player *player)
 {
     qDebug() << "DED NOT BIG SUPRISE";
-    //delete(player);
 }
 
 void EntityManager::getCoin(Coin *coin)
 {
     qDebug() << "toudoum";
     m_entities.removeAt(m_entities.indexOf(coin));
-    delete(coin);
 }

@@ -5,5 +5,6 @@
         <file>tileset.json</file>
         <file>sprite_mario.png</file>
         <file>sprite_boomba.png</file>
+        <file>sprite_coin.png</file>
     </qresource>
 </RCC>

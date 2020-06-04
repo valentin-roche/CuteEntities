@@ -1,9 +1,8 @@
 #include "coin.h"
 
-Coin::Coin(QPoint position, QPoint viewSize) : Entity(position, {10, 10}) {}
-void Coin::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
+Coin::Coin(QPoint position, QPoint viewSize) : Entity(position, {16, 16})
 {
-    painter->fillRect(QRectF{0, 0, 10, 10}, Qt::yellow);
+    m_sprite.load(":/sprite_coin.png");
 }
 
 void Coin::delta(qint64 elapsed) {
