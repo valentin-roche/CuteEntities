@@ -23,10 +23,14 @@ SOURCES += \
     Tile.cpp \
     TileMap.cpp \
     TileSet.cpp \
+    basicai.cpp \
+    coin.cpp \
+    enemy.cpp \
     entity.cpp \
     entitymanager.cpp \
     main.cpp \
-    scene.cpp
+    scene.cpp \
+    userinterface.cpp
 
 HEADERS += \
     CenteredTileMap.h \
@@ -36,9 +40,13 @@ HEADERS += \
     Tile.h \
     TileMap.h \
     TileSet.h \
+    basicai.h \
+    coin.h \
+    enemy.h \
     entity.h \
     entitymanager.h \
-    scene.h
+    scene.h \
+    userinterface.h
 
 FORMS +=
 

@@ -25,7 +25,7 @@ QList<Entity*> EntityManager::getEntities()
     return m_entities;
 }
 
-void EntityManager::load_from_json(QJsonArray json_ent_array)
+void EntityManager::loadFromJson(QJsonArray json_ent_array)
 {
     for (auto entInfoRaw : json_ent_array)
     {
@@ -36,10 +36,43 @@ void EntityManager::load_from_json(QJsonArray json_ent_array)
 
         QString entType = entInfo["type"].toString();
 
-        /*if (entType == "ent")
+        if (entType == "player")
         {
-            Entity *e = new Entity(position, 20, 20);
+            //qDebug() << "Setting  player's spawn point at : " << position;
+            m_player->setPosition(position);
+        }
+        if (entType == "basicEnnemy")
+        {
+            Enemy *e = new Enemy(position, {10, 10});
             m_entities.append(e);
-        }*/
+        }
+        if (entType == "coin")
+        {
+            Coin *c = new Coin(position, {5, 5});
+            m_entities.append(c);
+        }
     }
+}
+
+
+void EntityManager::setPlayer(Player *player)
+{
+    m_player = player;
+}
+
+void EntityManager::killEnemy(Enemy *enemy)
+{
+    m_entities.removeAt(m_entities.indexOf(enemy));
+    delete(enemy);
+}
+
+void EntityManager::killPlayer(Player *player)
+{
+    qDebug() << "DED NOT BIG SUPRISE";
+}
+
+void EntityManager::getCoin(Coin *coin)
+{
+    qDebug() << "toudoum";
+    m_entities.removeAt(m_entities.indexOf(coin));
 }

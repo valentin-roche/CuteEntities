@@ -3,6 +3,7 @@
 Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     QGraphicsView(parent), m_entities(entities), m_tileset(tileset), m_tilemap(&tileset, {800, 20}), m_player({800, 600})
 {
+    m_entities.setPlayer(&m_player);
     load_from_json();
     main_timer = new QElapsedTimer();
 
@@ -18,6 +19,9 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     m_player.setFlag(QGraphicsItem::ItemIsFocusable);
     m_player.setFocus();
 
+    m_UI = new UserInterface(0,0,main_timer);
+    scene.addItem(m_UI->display());
+
     m_entities.add(&m_player);
     qDebug() << "entities : " << m_entities.getEntities();
 
@@ -28,20 +32,21 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     }
 
     setScene(&scene);
-
     setBackgroundBrush(QBrush(QColor::fromRgb(162, 216, 255)));
-
     sec_timer = new QElapsedTimer();
     update_for_sec = 0;
 
     timer_render->start(0);
 }
 
+UserInterface *Scene::getUI() const
+{
+    return m_UI;
+}
+
 void Scene::doDelta()
 {
-    bool tileUnderPlayer = tileExistsAt({(int) m_player.pos().x(), (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
-    bool tileRightPlayer = tileExistsAt({(int) (m_player.pos().x() + m_player.boundingRect().width()) + 2, (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
-    bool tileLeftPlayer = tileExistsAt({(int) (m_player.pos().x() - 2), (int) (m_player.pos().y() + m_player.boundingRect().height() - 2)});
+    calculateCollisions();
 
     auto *itemUnder = itemAt({(int) m_player.pos().x() + (int) (m_player.boundingRect().width() / 2),
                               (int) (m_player.pos().y() + m_player.boundingRect().height() + 2)});
@@ -54,7 +59,6 @@ void Scene::doDelta()
         }
     }
 
-    m_player.setTileArround(tileLeftPlayer, tileRightPlayer, tileUnderPlayer);
     m_player.setFocus();
     m_entities.doDelta(main_timer);
 
@@ -74,10 +78,35 @@ void Scene::doDelta()
                 qDebug() << "Player loose";
             }
         }
+
+        if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
+            CollisionHandler::playerEnemy(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities);
+        }
+
+        if (Coin* coin = qgraphicsitem_cast<Coin*>(item)) {
+            if(m_player.collidesWithItem(coin) == true) {
+                CollisionHandler::playerCoin(&m_player, coin, m_tilemap.getOffsetX(), &m_entities);
+                scene.removeItem(item);
+            }
+        }
     }
 
     m_tilemap.update();
     m_tilemap.updatePlayerPosition(m_player.getPosition());
+}
+
+void Scene::calculateCollisions()
+{
+    for (Entity *e : m_entities.getEntities())
+    {
+        e->setTileMapOffset(m_tilemap.getOffsetX());
+        if(MovingEntity* ent = qgraphicsitem_cast<MovingEntity*>(e))
+        {
+            ent->setDownTileEntity(tileExistsAt({(int) ent->pos().x(), (int) (ent->pos().y() + ent->boundingRect().height() + 2)}));
+            ent->setRightTileEntity(tileExistsAt({(int) (ent->pos().x() + ent->boundingRect().width()) + 2, (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
+            ent->setLeftTileEntity(tileExistsAt({(int) (ent->pos().x() - 2), (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
+        }
+    }
 }
 
 bool Scene::tileExistsAt(QPoint position)
@@ -103,6 +132,7 @@ void Scene::startRender()
     {
         update_for_sec = 0;
         sec_timer->restart();
+        m_UI->updateTimer();
     }
     this->doDelta();
     //qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));
@@ -126,5 +156,5 @@ void Scene::load_from_json()
 
 
     QJsonArray ent = mainObject["entities"].toArray();
-    m_entities.load_from_json(ent);
+    m_entities.loadFromJson(ent);
 }

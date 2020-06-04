@@ -17,9 +17,7 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-
-    void setTileArround(bool leftTile, bool rightTile, bool downTile);
+    //void setTileArround(bool leftTile, bool rightTile, bool downTile);
 
     void delta(qint64 elapsed) override;
 
@@ -30,10 +28,6 @@ private:
     static constexpr float acceleration = 1;
     static constexpr float deceleration = 0.3;
     static constexpr int jumpIntancity = 10;
-
-    bool m_leftTile = false;
-    bool m_rightTile = false;
-    bool m_downTile = false;
 
     bool m_jumpAvailable = false;
 

@@ -1,8 +1,12 @@
 #include "Player.h"
 
-Player::Player(QPoint viewSize) : MovingEntity({0, 0}, {20, 30}), m_viewSize(viewSize)
+Player::Player(QPoint viewSize) : MovingEntity({0, 0}, {19, 30}), m_viewSize(viewSize)
 {
     m_position = {100, 100};
+    m_sprite.load(":/sprite_mario.png");
+    m_numberOfSprite = 3;
+    m_animated = true;
+
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -31,26 +35,14 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
-{
-    painter->fillRect(QRectF{0, 0, (float) m_size.x(), (float) m_size.y()}, Qt::red);
-}
-
-void Player::setTileArround(bool leftTile, bool rightTile, bool downTile)
-{
-    m_leftTile = leftTile;
-    m_rightTile = rightTile;
-    m_downTile = downTile;
-}
-
 void Player::delta(qint64 elapsed)
 {
     // Calculate velocity
     float velocityX = m_velocity.x();
 
-    if (m_leftPressed && !m_leftTile){
+    if (m_leftPressed && !m_leftTileEntity){
         velocityX -= acceleration;
-    } else if (m_rightPressed && !m_rightTile){
+    } else if (m_rightPressed && !m_rightTileEntity){
         velocityX += acceleration;
     } else {
         // If no movement on x axis, slow down
@@ -72,9 +64,9 @@ void Player::delta(qint64 elapsed)
     }
 
     // Gravity
-    if (!m_downTile) {
+    if (!m_downTileEntity) {
         m_jumpAvailable = false;
-        m_velocity.setY(m_velocity.y() + gravityIntencity);
+        m_velocity.setY(m_velocity.y() + gravityIntancity);
     } else {
         m_jumpAvailable = true;
     }
@@ -100,4 +92,21 @@ void Player::delta(qint64 elapsed)
     }
 
     setPos(displayXPosition, m_position.y());
+
+    // Animations
+    updateSpriteDirection();
+
+    if (!m_downTileEntity) {
+        m_animated = false;
+        m_currentSprite = 0;
+    } else {
+        m_animated = m_velocity.x() != 0;
+    }
+
+    if (!m_animated) {
+        m_currentSprite = 0;
+    }
+
+    updateSprite();
 }
+
