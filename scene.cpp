@@ -19,6 +19,9 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     m_player.setFlag(QGraphicsItem::ItemIsFocusable);
     m_player.setFocus();
 
+    m_UI = new UserInterface(0,0,main_timer);
+    scene.addItem(m_UI->display());
+
     m_entities.add(&m_player);
     qDebug() << "entities : " << m_entities.getEntities();
 
@@ -34,6 +37,11 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     update_for_sec = 0;
 
     timer_render->start(0);
+}
+
+UserInterface *Scene::getUI() const
+{
+    return m_UI;
 }
 
 void Scene::doDelta()
@@ -124,6 +132,7 @@ void Scene::startRender()
     {
         update_for_sec = 0;
         sec_timer->restart();
+        m_UI->updateTimer();
     }
     this->doDelta();
     //qDebug() << "Time until next update : " << QString::number((1000 - sec_timer->elapsed()) / (60 - update_for_sec));

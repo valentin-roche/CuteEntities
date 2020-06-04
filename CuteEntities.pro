@@ -29,7 +29,8 @@ SOURCES += \
     entity.cpp \
     entitymanager.cpp \
     main.cpp \
-    scene.cpp
+    scene.cpp \
+    userinterface.cpp
 
 HEADERS += \
     CenteredTileMap.h \
@@ -44,7 +45,8 @@ HEADERS += \
     enemy.h \
     entity.h \
     entitymanager.h \
-    scene.h
+    scene.h \
+    userinterface.h
 
 FORMS +=
 

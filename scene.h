@@ -7,6 +7,7 @@
 #include "CenteredTileMap.h"
 #include "Player.h"
 #include "CollisionHandler.h"
+#include "userinterface.h"
 
 #include <QGraphicsView>
 #include <QElapsedTimer>
@@ -33,6 +34,7 @@ private:
     TileSet& m_tileset;
     CenteredTileMap m_tilemap;
     Player m_player;
+    UserInterface* m_UI;
 
     void doDelta();
     bool tileExistsAt(QPoint position);
@@ -42,6 +44,8 @@ public:
     Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
     QGraphicsScene * getScene();
     void calculateCollisions();
+
+    UserInterface *getUI() const;
 
 public slots:
     void startRender();
