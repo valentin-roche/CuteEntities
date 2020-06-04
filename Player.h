@@ -17,8 +17,6 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-
     //void setTileArround(bool leftTile, bool rightTile, bool downTile);
 
     void delta(qint64 elapsed) override;

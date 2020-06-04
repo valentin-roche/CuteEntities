@@ -47,6 +47,27 @@ void MovingEntity::setLeftTileEntity(bool leftTileEntity)
     m_leftTileEntity = leftTileEntity;
 }
 
+void MovingEntity::updateSpriteDirection()
+{
+    if (m_velocity.x() > 0) {
+        m_spriteLine = MovingDirection::Right;
+    } else if (m_velocity.x() < 0){
+        m_spriteLine = MovingDirection::Left;
+    }
+}
+
+void MovingEntity::updateSprite()
+{
+    if (m_animationTimer.elapsed() > 150) {
+        if (m_animated) {
+            m_currentSprite++;
+            if (m_currentSprite > m_numberOfSprite - 1) m_currentSprite = 0;
+        }
+
+        m_animationTimer.restart();
+    }
+}
+
 void MovingEntity::bounce(int intensity)
 {
     m_velocity.setY(m_velocity.y() - intensity);

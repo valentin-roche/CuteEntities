@@ -3,5 +3,7 @@
         <file>tilemap.png</file>
         <file>map.json</file>
         <file>tileset.json</file>
+        <file>sprite_mario.png</file>
+        <file>sprite_boomba.png</file>
     </qresource>
 </RCC>

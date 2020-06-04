@@ -79,6 +79,7 @@ void CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, 
             verticalValue *= -1;
         }
         entityManager->killEnemy(enemy);
+        player->bounce(10);
 
     } else {
         // Move the player on the horizontal axis
