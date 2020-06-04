@@ -249,6 +249,13 @@
         },
         {
             "position": {
+                "x": 60,
+                "y": 7
+            },
+            "tile": "flag_top"
+        },
+        {
+            "position": {
                 "x": 19,
                 "y": 8
             },
@@ -277,6 +284,13 @@
         },
         {
             "position": {
+                "x": 60,
+                "y": 8
+            },
+            "tile": "flag_pole"
+        },
+        {
+            "position": {
                 "x": 38,
                 "y": 9
             },
@@ -288,6 +302,13 @@
                 "y": 9
             },
             "tile": "double_tube_middle_right"
+        },
+        {
+            "position": {
+                "x": 60,
+                "y": 9
+            },
+            "tile": "flag_pole"
         },
         {
             "position": {
@@ -347,6 +368,13 @@
         },
         {
             "position": {
+                "x": 60,
+                "y": 10
+            },
+            "tile": "flag_pole"
+        },
+        {
+            "position": {
                 "x": 33,
                 "y": 11
             },
@@ -373,7 +401,6 @@
             },
             "tile": "double_tube_middle_right"
         },
-
         {
             "position": {
                 "x": 2,

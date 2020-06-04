@@ -31,6 +31,7 @@ public:
     bool hasKill();
     bool hasCollapse();
     bool hasBounce();
+    bool hasCoin();
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }

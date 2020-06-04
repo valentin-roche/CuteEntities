@@ -51,8 +51,8 @@
         },
         {
             "name": "air",
-            "position": {"x": 16, "y": 0},
-            "collision": false
+            "position": {"x": 14, "y": 5},
+            "collision": true
         },
         {
             "name": "kill",
@@ -63,7 +63,8 @@
         {
             "name": "question_box",
             "position": {"x": 15, "y": 0},
-            "collision": true
+            "collision": true,
+            "coin": true
         }, 
         {
             "name": "weak_ground",
@@ -108,6 +109,18 @@
             "position": {"x": 34, "y": 12},
             "collision": true,
             "bounce": true
+        },
+        {
+            "name": "flag_pole",
+            "position": {"x": 16, "y": 1},
+            "collision": false,
+            "win": true
+        },
+        {
+            "name": "flag_top",
+            "position": {"x": 16, "y": 0},
+            "collision": false,
+            "win": true
         }
     ]
 }

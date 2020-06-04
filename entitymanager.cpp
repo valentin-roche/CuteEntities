@@ -62,7 +62,6 @@ void EntityManager::setPlayer(Player *player)
 void EntityManager::killEnemy(Enemy *enemy)
 {
     m_entities.removeAt(m_entities.indexOf(enemy));
-    delete(enemy);
 }
 
 void EntityManager::killPlayer(Player *player)
