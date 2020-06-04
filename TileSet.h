@@ -25,6 +25,7 @@ public:
         bool kill;
         bool collapse;
         bool bounce;
+        bool coin;
     };
 
     TileSet(QString imagePath, QPoint tileSize, QPoint size, QPoint tileOffset = {0, 0});
@@ -39,6 +40,7 @@ public:
     bool hasKill(QString name);
     bool hasCollapse(QString name);
     bool hasBounce(QString name);
+    bool hasCoin(QString name);
 
     const TileDescriptor& getTileDescriptor(QString name);
 

@@ -49,3 +49,8 @@ bool Tile::hasBounce()
 {
     return isEnabled() && m_tileset.hasBounce(m_descriptorName);
 }
+
+bool Tile::hasCoin()
+{
+    return isEnabled() && m_tileset.hasCoin(m_descriptorName);
+}

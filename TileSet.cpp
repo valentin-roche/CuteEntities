@@ -85,6 +85,11 @@ bool TileSet::hasBounce(QString name)
     return getTileDescriptor(name).bounce;
 }
 
+bool TileSet::hasCoin(QString name)
+{
+    return getTileDescriptor(name).coin;
+}
+
 const TileSet::TileDescriptor &TileSet::getTileDescriptor(QString name)
 {
     auto descriptor = std::find_if(m_tileDescriptors.begin(), m_tileDescriptors.end(), [&name](const TileDescriptor& value) {
@@ -112,6 +117,9 @@ void TileSet::addTileDescriptor(QJsonObject &descriptor)
     bool bounce = false;
     if (descriptor.contains("bounce") && descriptor["bounce"].toBool()) bounce = true;
 
-    m_tileDescriptors.push_back({tileName, tilePosition, descriptor["collision"].toBool(), win, kill, collapse, bounce});
+    bool coin = false;
+    if (descriptor.contains("coin") && descriptor["coin"].toBool()) coin = true;
+
+    m_tileDescriptors.push_back({tileName, tilePosition, descriptor["collision"].toBool(), win, kill, collapse, bounce, coin});
 }
 

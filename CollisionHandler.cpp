@@ -45,7 +45,7 @@ void CollisionHandler::playerTile(Player *player, Tile *tile, int mapOffset)
     }
 }
 
-void CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager)
+bool CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager)
 {
     RectPoints playerPoints = getPoints(player);
     RectPoints enemyPoints = getPoints(enemy, mapOffset);
@@ -80,6 +80,7 @@ void CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, 
         }
         entityManager->killEnemy(enemy);
         player->bounce(10);
+        return true;
 
     } else {
         // Move the player on the horizontal axis
@@ -87,12 +88,13 @@ void CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, 
             horizontalValue *= -1;
         }
         entityManager->killPlayer(player);
+        return false;
     }
 }
 
 void CollisionHandler::playerCoin(Player *player, Coin *coin, int mapOffset, EntityManager* entityManager)
 {
-       entityManager->getCoin(coin);
+    entityManager->getCoin(coin);
 }
 
 CollisionHandler::RectPoints CollisionHandler::getPoints(QGraphicsItem *item, int offset)

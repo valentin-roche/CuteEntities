@@ -63,7 +63,6 @@ void EntityManager::setPlayer(Player *player)
 void EntityManager::killEnemy(Enemy *enemy)
 {
     m_entities.removeAt(m_entities.indexOf(enemy));
-    delete(enemy);
 }
 
 void EntityManager::killPlayer(Player *player)
@@ -75,4 +74,5 @@ void EntityManager::getCoin(Coin *coin)
 {
     qDebug() << "toudoum";
     m_entities.removeAt(m_entities.indexOf(coin));
+    qDebug() << "toudoum 2";
 }

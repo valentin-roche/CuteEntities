@@ -70,6 +70,15 @@ void Scene::doDelta()
                 if (tile->hasCollapse()) {
                     m_tilemap.collapseTile(tile->getTilePosition());
                 }
+
+                if (tile->hasCoin()) {
+                    m_tilemap.disableTile(tile->getTilePosition());
+                    Coin* coin = new Coin({ (int) (tile->getTilePosition().x() * m_tilemap.getTileSize().x()),
+                                            (int) (tile->getTilePosition().y() * m_tilemap.getTileSize().y())},
+                                          {800, 600});
+                    scene.addItem(coin);
+                    m_entities.add(coin);
+                }
             }
 
             if (tile->hasWin()) {
@@ -80,14 +89,14 @@ void Scene::doDelta()
         }
 
         if (Enemy* enemy = qgraphicsitem_cast<Enemy*>(item)) {
-            CollisionHandler::playerEnemy(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities);
+            if (CollisionHandler::playerEnemy(&m_player, enemy, m_tilemap.getOffsetX(), &m_entities)) {
+                scene.removeItem(item);
+            }
         }
 
         if (Coin* coin = qgraphicsitem_cast<Coin*>(item)) {
-            if(m_player.collidesWithItem(coin) == true) {
-                CollisionHandler::playerCoin(&m_player, coin, m_tilemap.getOffsetX(), &m_entities);
-                scene.removeItem(item);
-            }
+            CollisionHandler::playerCoin(&m_player, coin, m_tilemap.getOffsetX(), &m_entities);
+            scene.removeItem(item);
         }
     }
 

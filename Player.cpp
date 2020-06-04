@@ -83,6 +83,8 @@ void Player::delta(qint64 elapsed)
     m_position.setX(m_position.x() + m_velocity.x());
     m_position.setY(m_position.y() + m_velocity.y());
 
+    if (m_position.x() < 0) m_position.setX(0);
+
     // Calculate display position
     int displayXPosition;
     if (m_position.x() < (m_viewSize.x() / 2)) {

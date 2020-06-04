@@ -51,10 +51,4 @@ public slots:
     void startRender();
 };
 
-struct level_info
-{
-    int nb_coins;
-
-};
-
 #endif // SCENE_H
