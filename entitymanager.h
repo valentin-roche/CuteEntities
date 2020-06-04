@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "entity.h"
 #include "enemy.h"
+#include "coin.h"
 
 #include <QElapsedTimer>
 #include <QGraphicsScene>
@@ -25,6 +26,7 @@ public:
     void setPlayer(Player *player);
     void killEnemy(Enemy *enemy);
     void killPlayer(Player *player);
+    void getCoin(Coin *coin);
 };
 
 #endif // ENTITYMANAGER_H

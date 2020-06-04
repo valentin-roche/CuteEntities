@@ -46,8 +46,14 @@ void EntityManager::loadFromJson(QJsonArray json_ent_array)
             Enemy *e = new Enemy(position, {10, 10});
             m_entities.append(e);
         }
+        if (entType == "coin")
+        {
+            Coin *c = new Coin(position, {5, 5});
+            m_entities.append(c);
+        }
     }
 }
+
 
 void EntityManager::setPlayer(Player *player)
 {
@@ -64,4 +70,11 @@ void EntityManager::killPlayer(Player *player)
 {
     qDebug() << "DED NOT BIG SUPRISE";
     //delete(player);
+}
+
+void EntityManager::getCoin(Coin *coin)
+{
+    qDebug() << "toudoum";
+    m_entities.removeAt(m_entities.indexOf(coin));
+    delete(coin);
 }

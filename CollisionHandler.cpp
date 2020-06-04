@@ -45,7 +45,7 @@ void CollisionHandler::playerTile(Player *player, Tile *tile, int mapOffset)
     }
 }
 
-void CollisionHandler::playerCollide(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager)
+void CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager)
 {
     RectPoints playerPoints = getPoints(player);
     RectPoints enemyPoints = getPoints(enemy, mapOffset);
@@ -87,6 +87,11 @@ void CollisionHandler::playerCollide(Player *player, Enemy *enemy, int mapOffset
         }
         entityManager->killPlayer(player);
     }
+}
+
+void CollisionHandler::playerCoin(Player *player, Coin *coin, int mapOffset, EntityManager* entityManager)
+{
+       entityManager->getCoin(coin);
 }
 
 CollisionHandler::RectPoints CollisionHandler::getPoints(QGraphicsItem *item, int offset)

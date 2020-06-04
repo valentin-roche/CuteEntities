@@ -15,8 +15,8 @@ class CollisionHandler {
 
 public:
     static void playerTile(Player* player, Tile* tile, int mapOffset);
-    static void playerCollide(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager);
-
+    static void playerEnemy(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager);
+    static void playerCoin(Player *player, Coin *coin, int mapOffset, EntityManager* entityManager);
 private:
     struct RectPoints {
         QPointF topLeft;
