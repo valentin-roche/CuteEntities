@@ -74,19 +74,11 @@ bool CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, 
     }
 
     if (verticalValue < horizontalValue) {
-        // Move the player on the vertical axis
-        if (verticalSide == Directions::Top) {
-            verticalValue *= -1;
-        }
         entityManager->killEnemy(enemy);
         player->bounce(10);
         return true;
 
     } else {
-        // Move the player on the horizontal axis
-        if (horizontalSide == Directions::Left) {
-            horizontalValue *= -1;
-        }
         entityManager->killPlayer(player);
         return false;
     }

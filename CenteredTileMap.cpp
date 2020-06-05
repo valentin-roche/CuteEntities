@@ -68,3 +68,9 @@ void CenteredTileMap::collapseTile(QPoint position)
     m_collapseTimers[m_collapseTimers.size() - 1].start();
     m_collapsePositions.push_back(position);
 }
+
+void CenteredTileMap::resetCollapse()
+{
+    m_collapseTimers.clear();
+    m_collapsePositions.clear();
+}

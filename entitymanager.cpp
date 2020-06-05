@@ -37,6 +37,7 @@ void EntityManager::loadFromJson(QJsonArray json_ent_array)
         if (entType == "player")
         {
             m_player->setPosition(position);
+            m_player->setVelocity({0, 0});
         }
         if (entType == "basicEnnemy")
         {
@@ -65,6 +66,7 @@ void EntityManager::killEnemy(Enemy *enemy)
 void EntityManager::killPlayer(Player *player)
 {
     emit playerDead();
+    m_player->setVelocity({0, 0});
 }
 
 void EntityManager::getCoin(Coin *coin)

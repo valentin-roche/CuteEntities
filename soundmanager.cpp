@@ -3,12 +3,15 @@
 SoundManager::SoundManager()
 {
     m_music.setSource(QUrl::fromLocalFile(":/mario.wav"));
+    m_jump.setVolume(0.5f);
     m_music.setLoopCount(5000);
 
     m_coin.setSource(QUrl::fromLocalFile(":/coin.wav"));
+    m_jump.setVolume(0.5f);
     m_coin.setLoopCount(0);
 
     m_jump.setSource(QUrl::fromLocalFile(":/jump.wav"));
+    m_jump.setVolume(0.5f);
     m_jump.setLoopCount(0);
 }
 
