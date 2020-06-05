@@ -13,7 +13,7 @@ TileMap::TileMap(TileSet *tileset, QJsonObject size, QJsonArray tiles) :
 void TileMap::loadMap(QJsonObject size, QJsonArray tiles)
 {
     m_tiles.clear();
-
+    setPos(0,0);
     // Read map size
     m_size = {size["x"].toInt(), size["y"].toInt()};
 

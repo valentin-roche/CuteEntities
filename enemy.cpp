@@ -12,8 +12,16 @@ Enemy::Enemy(QPoint position, QPoint viewSize) : MovingEntity(position, {17, 18}
 
 void Enemy::delta(qint64 elapsed)
 {
-    int newDirection = BasicAI::predictNextMove(stepDirection, direction, false, 0);
-
+    int newDirection = 0;
+    if (m_leftTileEntity == true) {
+        newDirection = BasicAI::predictNextMove(stepDirection, direction, true, BasicAI::LEFT);
+    }
+    if (m_rightTileEntity == true) {
+        newDirection = BasicAI::predictNextMove(stepDirection, direction, true, BasicAI::RIGHT);
+    }
+    else {
+        newDirection = BasicAI::predictNextMove(stepDirection, direction, false, 0);
+    }
     // Calculate velocity
     float velocityX = m_velocity.x();
 
