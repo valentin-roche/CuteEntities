@@ -17,6 +17,10 @@ public:
     static void playerTile(Player* player, Tile* tile, int mapOffset);
     static bool playerEnemy(Player *player, Enemy *enemy, int mapOffset, EntityManager* entityManager);
     static void playerCoin(Player *player, Coin *coin, int mapOffset, EntityManager* entityManager);
+
+signals:
+    void gameOver(const QString& text) const;
+
 private:
     struct RectPoints {
         QPointF topLeft;
@@ -30,10 +34,7 @@ private:
         Left, Right,
         Bottom, Top
     };
-signals:
-    void gameOver(const QString& text) const;
 
-private:
     static RectPoints getPoints(QGraphicsItem *item, int offset = 0);
 };
 

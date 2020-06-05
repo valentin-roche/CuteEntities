@@ -40,17 +40,17 @@ TileSet::TileSet(QString jsonDescriptorPath)
     }
 }
 
-QPointF TileSet::getTileSize()
+QPointF TileSet::getTileSize() const
 {
     return m_tileSize;
 }
 
-const QImage &TileSet::getImage()
+const QImage &TileSet::getImage() const
 {
     return m_image;
 }
 
-QRectF TileSet::getTileRect(QString name)
+QRectF TileSet::getTileRect(QString name) const
 {
     auto &descriptor = getTileDescriptor(name);
     const QPoint &position = descriptor.position;
@@ -60,37 +60,37 @@ QRectF TileSet::getTileRect(QString name)
                 (float) m_tileSize.x(), (float) m_tileSize.y()};
 }
 
-bool TileSet::hasCollision(QString name)
+bool TileSet::hasCollision(QString name) const
 {
     return getTileDescriptor(name).collision;
 }
 
-bool TileSet::hasWin(QString name)
+bool TileSet::hasWin(QString name) const
 {
     return getTileDescriptor(name).win;
 }
 
-bool TileSet::hasKill(QString name)
+bool TileSet::hasKill(QString name) const
 {
     return getTileDescriptor(name).kill;
 }
 
-bool TileSet::hasCollapse(QString name)
+bool TileSet::hasCollapse(QString name) const
 {
     return getTileDescriptor(name).collapse;
 }
 
-bool TileSet::hasBounce(QString name)
+bool TileSet::hasBounce(QString name) const
 {
     return getTileDescriptor(name).bounce;
 }
 
-bool TileSet::hasCoin(QString name)
+bool TileSet::hasCoin(QString name) const
 {
     return getTileDescriptor(name).coin;
 }
 
-const TileSet::TileDescriptor &TileSet::getTileDescriptor(QString name)
+const TileSet::TileDescriptor &TileSet::getTileDescriptor(QString name) const
 {
     auto descriptor = std::find_if(m_tileDescriptors.begin(), m_tileDescriptors.end(), [&name](const TileDescriptor& value) {
        return value.name == name;

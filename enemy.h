@@ -1,8 +1,11 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include <MovingEntity.h>
+
 #include <QGraphicsRectItem>
+
+#include <MovingEntity.h>
 #include "basicai.h"
+
 class Enemy : public MovingEntity
 {
 public:
@@ -11,6 +14,7 @@ public:
 
     enum { Type = UserType + 10 };
     int type() const override { return Type; }
+
 private:
     QPoint m_viewSize;
     int direction = BasicAI::RIGHT;

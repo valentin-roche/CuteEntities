@@ -26,16 +26,16 @@ public:
     void disableTile(QPointF position);
     void disableAll();
 
-    bool tileExists(QPointF position);
-    QPointF getTileSize() {return m_tileSize;}
-    QPoint getSize() {return m_size;}
+    bool tileExists(QPointF position) const;
+    QPointF getTileSize() const {return m_tileSize;}
+    QPoint getSize() const {return m_size;}
 
     enum { Type = UserType + 2 };
     int type() const override { return Type; }
 
 protected:
-    Tile& getTile(QPointF position);
-    bool tileEnabled(QPointF position);
+    Tile& getTile(QPointF position) const;
+    bool tileEnabled(QPointF position) const;
 
 private:
     QPoint m_size;

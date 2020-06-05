@@ -25,32 +25,32 @@ void Tile::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidge
     painter->drawImage(QRectF{0, 0, m_tileSize.x(), m_tileSize.y()}, m_tileset.getImage(), m_tileset.getTileRect(m_descriptorName));
 }
 
-bool Tile::hasCollision()
+bool Tile::hasCollision() const
 {
     return isEnabled() && m_tileset.hasCollision(m_descriptorName);
 }
 
-bool Tile::hasWin()
+bool Tile::hasWin() const
 {
     return isEnabled() && m_tileset.hasWin(m_descriptorName);
 }
 
-bool Tile::hasKill()
+bool Tile::hasKill() const
 {
     return isEnabled() && m_tileset.hasKill(m_descriptorName);
 }
 
-bool Tile::hasCollapse()
+bool Tile::hasCollapse() const
 {
     return isEnabled() && m_tileset.hasCollapse(m_descriptorName);
 }
 
-bool Tile::hasBounce()
+bool Tile::hasBounce() const
 {
     return isEnabled() && m_tileset.hasBounce(m_descriptorName);
 }
 
-bool Tile::hasCoin()
+bool Tile::hasCoin() const
 {
     return isEnabled() && m_tileset.hasCoin(m_descriptorName);
 }

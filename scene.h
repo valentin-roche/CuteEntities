@@ -23,6 +23,18 @@ class Scene : public QGraphicsView
 {
     Q_OBJECT
 
+public:
+    Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
+    QGraphicsScene * getScene();
+    void calculateCollisions();
+
+    UserInterface *getUI() const;
+
+public slots:
+    void startRender();
+    void updateCoin();
+    void playerDeath();
+
 private:
     QGraphicsScene scene;
     EntityManager &m_entities;
@@ -40,22 +52,10 @@ private:
     UserInterface* m_UI;
 
     void doDelta();
-    bool tileExistsAt(QPoint position);
+    bool tileExistsAt(QPoint position) const;
     void load_from_json();
 
     void reset();
-
-public:
-    Scene(EntityManager& entities, TileSet& tileset, QWidget *parent=0);
-    QGraphicsScene * getScene();
-    void calculateCollisions();
-
-    UserInterface *getUI() const;
-
-public slots:
-    void startRender();
-    void updateCoin();
-    void playerDeath();
 };
 
 #endif // SCENE_H

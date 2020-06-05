@@ -15,10 +15,6 @@ class EntityManager : public QObject
 {
     Q_OBJECT
 
-private:
-    QList<Entity*> m_entities;
-    Player *m_player;
-
 public:
     EntityManager();
     void add(Entity *ent);
@@ -34,6 +30,10 @@ public:
 signals:
     void coinGet();
     void playerDead();
+
+private:
+    QList<Entity*> m_entities;
+    Player *m_player;
 
 };
 

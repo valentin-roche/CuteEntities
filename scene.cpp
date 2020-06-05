@@ -24,12 +24,10 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     scene.addItem(m_UI->display());
 
     m_entities.add(&m_player);
-    //qDebug() << "entities : " << m_entities.getEntities();
 
     for (Entity* e : m_entities.getEntities())
     {
         scene.addItem(e);
-        //qDebug() << "Ajout de l'entite : " << e;
     }
 
     setScene(&scene);
@@ -86,6 +84,7 @@ void Scene::doDelta()
                 qDebug() << "Player won";
             } else if (tile->hasKill()) {
                 m_entities.killPlayer(&m_player);
+                break;
             }
         }
 
@@ -121,7 +120,7 @@ void Scene::calculateCollisions()
     }
 }
 
-bool Scene::tileExistsAt(QPoint position)
+bool Scene::tileExistsAt(QPoint position) const
 {
     QGraphicsItem *item = itemAt(position);
     auto *tile = qgraphicsitem_cast<Tile*>(item);
@@ -135,7 +134,6 @@ QGraphicsScene * Scene::getScene()
 
 void Scene::startRender()
 {
-    //qDebug() << "Update " << update_for_sec << " elapsed : " << QString::number(sec_timer->elapsed());
     if (sec_timer->elapsed() < 1000 && update_for_sec < 59)
     {
         update_for_sec ++;
@@ -148,7 +146,7 @@ void Scene::startRender()
     }
     this->doDelta();
     int time = (1000 - sec_timer->elapsed()) / (60 - update_for_sec);
-    //TODO TROUVER UN MEILLEUR FIX
+
     if (time < 0) {
         time = 0;
     }
@@ -173,10 +171,7 @@ void Scene::playerDeath()
 void Scene::reset()
 {
 
-    //timer_render->stop();
-
     for (QGraphicsItem *item : scene.items()) {
-        qDebug() << item;
         if (item != &m_player && item != &m_tilemap && item != m_UI->display() && item->parentItem() != m_UI->display()) {
             scene.removeItem(item);
         }
@@ -188,12 +183,10 @@ void Scene::reset()
     m_entities.setPlayer(&m_player);
     load_from_json();
 
-    qDebug() << m_entities.getEntities();
     for (Entity* e : m_entities.getEntities())
     {
         if (e != &m_player)
             scene.addItem(e);
-        //qDebug() << "Ajout de l'entite : " << e;
     }
 }
 

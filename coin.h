@@ -12,6 +12,7 @@ public:
 
     enum { Type = UserType + 20 };
     int type() const override { return Type; }
+
 private:
     QPoint m_viewSize;
 };

@@ -13,7 +13,7 @@ public:
 
     void setViewSize(QPoint viewSize);
     void updatePlayerPosition(QPoint playerPosition);
-    float getOffsetX() { return m_offsetX; }
+    float getOffsetX() const { return m_offsetX; }
 
     void collapseTile(QPoint position);
 

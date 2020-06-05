@@ -31,18 +31,18 @@ public:
     TileSet(QString imagePath, QPoint tileSize, QPoint size, QPoint tileOffset = {0, 0});
     TileSet(QString jsonDescriptorPath);
 
-    QPointF getTileSize();
-    const QImage& getImage();
-    QRectF getTileRect(QString name);
+    QPointF getTileSize() const;
+    const QImage& getImage() const;
+    QRectF getTileRect(QString name) const;
 
-    bool hasCollision(QString name);
-    bool hasWin(QString name);
-    bool hasKill(QString name);
-    bool hasCollapse(QString name);
-    bool hasBounce(QString name);
-    bool hasCoin(QString name);
+    bool hasCollision(QString name) const;
+    bool hasWin(QString name) const;
+    bool hasKill(QString name) const;
+    bool hasCollapse(QString name) const;
+    bool hasBounce(QString name) const;
+    bool hasCoin(QString name) const;
 
-    const TileDescriptor& getTileDescriptor(QString name);
+    const TileDescriptor& getTileDescriptor(QString name) const;
 
 private:
     QImage m_image;

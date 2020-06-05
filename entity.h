@@ -20,11 +20,11 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     virtual void delta(qint64 elapsed) = 0;
 
-    QPoint getPosition() { return m_position; }
+    QPoint getPosition() const { return m_position; }
     void setPosition(QPoint newPos) { m_position = newPos; }
 
     void setTileMapOffset(int offset) { m_tilemapOffset = offset; }
-    bool getIsMoving() { return isMoving; }
+    bool getIsMoving() const { return isMoving; }
 
 protected:
     QPoint m_position;

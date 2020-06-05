@@ -40,12 +40,12 @@ void TileMap::loadMap(QJsonObject size, QJsonArray tiles)
     }
 }
 
-bool TileMap::tileExists(QPointF position)
+bool TileMap::tileExists(QPointF position) const
 {
     return position.x() >= 0 && position.y() >= 0 && position.x() < m_size.x() && position.y() < m_size.y();
 }
 
-Tile &TileMap::getTile(QPointF position)
+Tile &TileMap::getTile(QPointF position) const
 {
     assert(tileExists(position));
     return *m_tiles[position.x() + m_size.x() * position.y()];

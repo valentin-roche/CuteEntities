@@ -24,14 +24,14 @@ public:
         m_descriptorName = descriptorName;
     }
     void disable() { m_enabled = false; }
-    bool isEnabled() { return m_enabled && m_descriptorName.length() > 0; }
+    bool isEnabled() const { return m_enabled && m_descriptorName.length() > 0; }
 
-    bool hasCollision();
-    bool hasWin();
-    bool hasKill();
-    bool hasCollapse();
-    bool hasBounce();
-    bool hasCoin();
+    bool hasCollision() const;
+    bool hasWin() const;
+    bool hasKill() const;
+    bool hasCollapse() const;
+    bool hasBounce() const;
+    bool hasCoin() const;
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
