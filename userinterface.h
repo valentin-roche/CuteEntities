@@ -17,6 +17,7 @@ private :
     QGraphicsTextItem* m_deathLabel;
     QGraphicsTextItem* m_coinLabel;
     QGraphicsTextItem* m_timeLabel;
+    QGraphicsSimpleTextItem* m_victoryLabel;
     QGraphicsItemGroup* m_display;
     QElapsedTimer* m_timer;
     qint64 m_startTime;
@@ -36,7 +37,8 @@ public:
     void updateCoin();
     void updateDeath();
     void updateTimer();
-
+    QGraphicsSimpleTextItem* displayVictory();
+    QGraphicsSimpleTextItem *victoryLabel() const;
 };
 
 #endif // USERINTERFACE_H
