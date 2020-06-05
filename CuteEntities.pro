@@ -30,6 +30,7 @@ SOURCES += \
     entitymanager.cpp \
     main.cpp \
     scene.cpp \
+    soundmanager.cpp \
     userinterface.cpp
 
 HEADERS += \
@@ -46,6 +47,7 @@ HEADERS += \
     entity.h \
     entitymanager.h \
     scene.h \
+    soundmanager.h \
     userinterface.h
 
 FORMS +=

@@ -10,14 +10,6 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     timer_render = new QTimer();
     timer_render->setSingleShot(true);
 
-    /*m_playlist = new QMediaPlaylist();
-    m_playlist->addMedia(QUrl(":/music.mp3"));
-    m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-    m_music = new QMediaPlayer();
-    m_music->setPlaylist(m_playlist);
-    m_music->play();*/
-
     connect(timer_render, SIGNAL(timeout()), this, SLOT(startRender()));
     connect(&m_entities, SIGNAL(coinGet()), this, SLOT(updateCoin()));
     connect(&m_entities, SIGNAL(playerDead()), this, SLOT(playerDeath()));
@@ -42,6 +34,8 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     setBackgroundBrush(QBrush(QColor::fromRgb(162, 216, 255)));
     sec_timer = new QElapsedTimer();
     update_for_sec = 0;
+
+    m_soundManager.play(SoundManager::Sounds::Music);
 
     timer_render->start(0);
 }
@@ -89,7 +83,7 @@ void Scene::doDelta()
             }
 
             if (tile->hasWin()) {
-                qDebug() << "pos";
+                m_UI->displayVictory();
                 timer_render->stop();
             } else if (tile->hasKill()) {
                 m_entities.killPlayer(&m_player);
@@ -106,7 +100,12 @@ void Scene::doDelta()
         if (Coin* coin = qgraphicsitem_cast<Coin*>(item)) {
             CollisionHandler::playerCoin(&m_player, coin, m_tilemap.getOffsetX(), &m_entities);
             scene.removeItem(item);
+            m_soundManager.play(SoundManager::Sounds::Coin);
         }
+    }
+
+    if (m_player.getJumped()) {
+        m_soundManager.play(SoundManager::Sounds::Jump);
     }
 
     m_tilemap.update();
@@ -177,6 +176,11 @@ void Scene::playerDeath()
     m_nb_coins = 0;
     m_UI->setNbCoin(m_nb_coins);
     reset();
+}
+
+void Scene::playerJumped()
+{
+    m_soundManager.play(SoundManager::Sounds::Jump);
 }
 
 void Scene::reset()

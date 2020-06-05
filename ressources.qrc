@@ -6,6 +6,8 @@
         <file>sprite_mario.png</file>
         <file>sprite_boomba.png</file>
         <file>sprite_coin.png</file>
-        <file>music.mp3</file>
+        <file>mario.wav</file>
+        <file>coin.wav</file>
+        <file>jump.wav</file>
     </qresource>
 </RCC>

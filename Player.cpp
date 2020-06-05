@@ -61,6 +61,7 @@ void Player::delta(qint64 elapsed)
         m_position.setY(m_position.y() - 2);
         m_upPressed = false;
         m_jumpAvailable = false;
+        m_jumped = true;
     }
 
     // Gravity
@@ -111,5 +112,13 @@ void Player::delta(qint64 elapsed)
     }
 
     updateSprite();
+}
+
+bool Player::getJumped()
+{
+    bool temp = m_jumped;
+    m_jumped = false;
+
+    return temp;
 }
 

@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "CollisionHandler.h"
 #include "userinterface.h"
+#include "soundmanager.h"
 
 #include <QGraphicsView>
 #include <QElapsedTimer>
@@ -20,6 +21,7 @@
 #include <QJsonDocument>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
+#include <QSoundEffect>
 
 class Scene : public QGraphicsView
 {
@@ -36,17 +38,16 @@ public slots:
     void startRender();
     void updateCoin();
     void playerDeath();
+    void playerJumped();
 
 private:
+    SoundManager m_soundManager;
     QGraphicsScene scene;
     EntityManager &m_entities;
     QElapsedTimer *main_timer;
     QElapsedTimer *sec_timer;
     QTimer *timer_render;
     int update_for_sec;
-
-    QMediaPlaylist *m_playlist;
-    QMediaPlayer *m_music;
 
     int m_nb_coins = 0;
     int m_nb_deaths = 0;

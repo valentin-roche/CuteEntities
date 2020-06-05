@@ -112,5 +112,6 @@ QGraphicsSimpleTextItem* UserInterface::displayVictory()
     m_victoryLabel->setText( QString::fromLatin1( "VICTOIRE" ) );
     QRectF bR = m_victoryLabel->sceneBoundingRect();
     m_victoryLabel->setPos( 400 - bR.width()/2, 300 - bR.height()/2 );
+    m_display->addToGroup(m_victoryLabel);
     return m_victoryLabel;
 }

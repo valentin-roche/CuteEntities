@@ -18,6 +18,7 @@ public:
     void keyReleaseEvent(QKeyEvent *event) override;
 
     void delta(qint64 elapsed) override;
+    bool getJumped();
 
 private:
     QPoint m_viewSize;
@@ -32,6 +33,8 @@ private:
     bool m_leftPressed = false;
     bool m_rightPressed = false;
     bool m_upPressed = false;
+
+    bool m_jumped = false;
 };
 
 #endif // PLAYER_H
