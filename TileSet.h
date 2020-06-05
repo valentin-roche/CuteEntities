@@ -16,18 +16,6 @@
 class TileSet {
 
 public:
-
-    struct TileDescriptor {
-        QString name;
-        QPoint position;
-        bool collision;
-        bool win;
-        bool kill;
-        bool collapse;
-        bool bounce;
-        bool coin;
-    };
-
     TileSet(QString imagePath, QPoint tileSize, QPoint size, QPoint tileOffset = {0, 0});
     TileSet(QString jsonDescriptorPath);
 
@@ -42,16 +30,26 @@ public:
     bool hasBounce(QString name) const;
     bool hasCoin(QString name) const;
 
-    const TileDescriptor& getTileDescriptor(QString name) const;
-
 private:
     QImage m_image;
     QPoint m_tileSize;
     QPoint m_size;
     QPoint m_tileOffset;
 
+    struct TileDescriptor {
+        QString name;
+        QPoint position;
+        bool collision;
+        bool win;
+        bool kill;
+        bool collapse;
+        bool bounce;
+        bool coin;
+    };
+
     QVector<TileDescriptor> m_tileDescriptors;
 
+    const TileDescriptor& getTileDescriptor(QString name) const;
     void addTileDescriptor(QJsonObject& descriptor);
 };
 

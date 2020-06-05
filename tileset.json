@@ -121,6 +121,30 @@
             "position": {"x": 16, "y": 0},
             "collision": false,
             "win": true
+        },
+        {
+            "name": "spike_up",
+            "position": {"x": 17, "y": 0},
+            "collision": true,
+            "kill": true
+        },
+        {
+            "name": "spike_down",
+            "position": {"x": 17, "y": 1},
+            "collision": true,
+            "kill": true
+        },
+        {
+            "name": "spike_left",
+            "position": {"x": 18, "y": 0},
+            "collision": true,
+            "kill": true
+        },
+        {
+            "name": "spike_right",
+            "position": {"x": 18, "y": 1},
+            "collision": true,
+            "kill": true
         }
     ]
 }

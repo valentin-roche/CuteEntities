@@ -10,6 +10,14 @@ Scene::Scene(EntityManager& entities, TileSet& tileset, QWidget *parent):
     timer_render = new QTimer();
     timer_render->setSingleShot(true);
 
+    /*m_playlist = new QMediaPlaylist();
+    m_playlist->addMedia(QUrl(":/music.mp3"));
+    m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    m_music = new QMediaPlayer();
+    m_music->setPlaylist(m_playlist);
+    m_music->play();*/
+
     connect(timer_render, SIGNAL(timeout()), this, SLOT(startRender()));
     connect(&m_entities, SIGNAL(coinGet()), this, SLOT(updateCoin()));
     connect(&m_entities, SIGNAL(playerDead()), this, SLOT(playerDeath()));
@@ -81,7 +89,8 @@ void Scene::doDelta()
             }
 
             if (tile->hasWin()) {
-                qDebug() << "Player won";
+                qDebug() << "pos";
+                timer_render->stop();
             } else if (tile->hasKill()) {
                 m_entities.killPlayer(&m_player);
                 break;
@@ -144,13 +153,15 @@ void Scene::startRender()
         sec_timer->restart();
         m_UI->updateTimer();
     }
-    this->doDelta();
+
     int time = (1000 - sec_timer->elapsed()) / (60 - update_for_sec);
 
     if (time < 0) {
         time = 0;
     }
     timer_render->start(time);
+
+    this->doDelta();
 }
 
 void Scene::updateCoin()

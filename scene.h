@@ -18,6 +18,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 
 class Scene : public QGraphicsView
 {
@@ -42,6 +44,9 @@ private:
     QElapsedTimer *sec_timer;
     QTimer *timer_render;
     int update_for_sec;
+
+    QMediaPlaylist *m_playlist;
+    QMediaPlayer *m_music;
 
     int m_nb_coins = 0;
     int m_nb_deaths = 0;

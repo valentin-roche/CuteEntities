@@ -72,7 +72,7 @@ bool CollisionHandler::playerEnemy(Player *player, Enemy *enemy, int mapOffset, 
         verticalSide = Directions::Bottom;
         verticalValue = enemyPoints.bottomRight.y() - playerPoints.topRight.y();
     }
-    //hop
+
     if (verticalValue < horizontalValue) {
         // Move the player on the vertical axis
         if (verticalSide == Directions::Top) {
