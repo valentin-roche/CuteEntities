@@ -38,6 +38,8 @@ private:
     QElapsedTimer* m_timer;
     qint64 m_startTime;
 
+    QGraphicsSimpleTextItem* displayVictory();
+    QGraphicsSimpleTextItem *victoryLabel() const;
 };
 
 #endif // USERINTERFACE_H
