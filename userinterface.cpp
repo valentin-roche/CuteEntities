@@ -66,15 +66,21 @@ UserInterface::UserInterface(int x_pos, int y_pos,QElapsedTimer* timer) : m_time
     m_startTime = m_timer->elapsed();
     m_nbDeath = 0;
     m_nbCoin = 0;
+
+    QFont qf_font = QFont();
+    qf_font.setWeight(QFont::Bold);
+    qf_font.setPointSize(10);
+    qf_font.setHintingPreference(QFont::PreferFullHinting);
+    qf_font.setStyleStrategy(QFont::ForceOutline);
     m_deathLabel = new QGraphicsTextItem();
     m_coinLabel = new QGraphicsTextItem(m_deathLabel);
     m_timeLabel = new QGraphicsTextItem(m_deathLabel);
     m_deathLabel->setDefaultTextColor(Qt::white);
     m_coinLabel->setDefaultTextColor(Qt::white);
     m_timeLabel->setDefaultTextColor(Qt::white);
-    m_deathLabel->setFont(QFont( "Helvetica", 12 ));
-    m_coinLabel->setFont(QFont( "Helvetica", 12 ));
-    m_timeLabel->setFont(QFont( "Helvetica", 12 ));
+    m_deathLabel->setFont(qf_font);
+    m_coinLabel->setFont(qf_font);
+    m_timeLabel->setFont(qf_font);
     m_deathLabel->setPlainText(("Nombre de mort : "+QString::number(m_nbDeath)));
     m_coinLabel->setPlainText("Nombre de pièces : "+QString::number(m_nbCoin));
     m_timeLabel->setPlainText("Temps : "+QString::number((m_timer->elapsed()-m_startTime)/1000));
