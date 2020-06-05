@@ -223,3 +223,4 @@ void Scene::load_from_json()
     QJsonArray ent = mainObject["entities"].toArray();
     m_entities.loadFromJson(ent);
 }
+

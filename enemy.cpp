@@ -14,12 +14,12 @@ void Enemy::delta(qint64 elapsed)
 {
     int newDirection = 0;
     if (m_leftTileEntity == true) {
-        newDirection = BasicAI::predictNextMove(stepDirection, direction, true, BasicAI::LEFT);
-    }
-    if (m_rightTileEntity == true) {
         newDirection = BasicAI::predictNextMove(stepDirection, direction, true, BasicAI::RIGHT);
     }
-    else {
+    if (m_rightTileEntity == true) {
+        newDirection = BasicAI::predictNextMove(stepDirection, direction, true, BasicAI::LEFT);
+    }
+    else if (m_leftTileEntity == false && m_rightTileEntity == false) {
         newDirection = BasicAI::predictNextMove(stepDirection, direction, false, 0);
     }
     // Calculate velocity

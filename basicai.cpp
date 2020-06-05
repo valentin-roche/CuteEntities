@@ -21,10 +21,7 @@ int BasicAI::predictNextMove(int stepDirection, int direction, bool collision, i
     }
 
     if (collision) {
-        if(collisionDirection != direction) {
-            return -direction;
-        }
-        return direction;
+        return -collisionDirection;
     }
     return direction;
 }
