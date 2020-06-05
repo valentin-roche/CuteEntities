@@ -16,6 +16,7 @@ public:
     float getOffsetX() const { return m_offsetX; }
 
     void collapseTile(QPoint position);
+    void resetCollapse();
 
 private:
     QPoint m_viewSize;

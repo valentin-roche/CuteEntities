@@ -6129,6 +6129,13 @@
         },
         {
             "position": {
+                "x": 69,
+                "y": 27
+            },
+            "tile": "weak_ground"
+        },
+        {
+            "position": {
                 "x": 70,
                 "y": 27
             },
@@ -7676,13 +7683,6 @@
         },
         {
             "position": {
-                "x": 138,
-                "y": 30
-            },
-            "tile": "spike_up"
-        },
-        {
-            "position": {
                 "x": 149,
                 "y": 30
             },
@@ -8337,7 +8337,7 @@
                 "x": 138,
                 "y": 31
             },
-            "tile": "dirt_middle"
+            "tile": "spike_up"
         },
         {
             "position": {

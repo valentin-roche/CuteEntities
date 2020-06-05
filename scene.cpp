@@ -121,7 +121,7 @@ void Scene::calculateCollisions()
 
         if(MovingEntity* ent = qgraphicsitem_cast<MovingEntity*>(e))
         {
-            ent->setDownTileEntity(tileExistsAt({(int) ent->pos().x(), (int) (ent->pos().y() + ent->boundingRect().height() + 2)}));
+            ent->setDownTileEntity(tileExistsAt({(int) (ent->pos().x() + ent->boundingRect().width() / 2), (int) (ent->pos().y() + ent->boundingRect().height() + 2)}));
             ent->setRightTileEntity(tileExistsAt({(int) (ent->pos().x() + ent->boundingRect().width()) + 2, (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
             ent->setLeftTileEntity(tileExistsAt({(int) (ent->pos().x() - 2), (int) (ent->pos().y() + ent->boundingRect().height() - 2)}));
         }
@@ -185,6 +185,7 @@ void Scene::playerJumped()
 
 void Scene::reset()
 {
+    m_tilemap.resetCollapse();
 
     for (QGraphicsItem *item : scene.items()) {
         if (item != &m_player && item != &m_tilemap && item != m_UI->display() && item->parentItem() != m_UI->display()) {
